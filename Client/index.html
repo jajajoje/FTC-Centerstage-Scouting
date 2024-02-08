@@ -1,0 +1,124 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" media="f0f8ff" content="f0f8ff">
+    <meta name="description" content="an intuitive scouting tool for FTC FIRST tech challenge, centerstage 2023-2024">
+    <title>FTC Centerstage Scouting</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link href="style.css" rel = "stylesheet" type = "text/css">
+    <script defer src="index.js"></script>
+</head>
+<body>
+    <header>
+        <a href = "https://ftc.ctrlyrobotics.org/home"><img src = "images/logo.svg" alt = "Website Logo" class = "logo"></a>
+        <div class="dropdown">
+
+            <div class = "credits_box">
+                <a class = "credits_text" href = "http://www.onlinewebfonts.com">Web Fonts</a>
+                <br>
+                <a class = "credits_text" href = "https://github.com/CtrlYTeam/FTC-Centerstage-Scouting">Github repo</a>
+                <br>
+                <a class = "credits_text" href = "https://ftc-scoring.firstinspires.org/resources/">First robotics</a>
+              </div>
+        </div>
+    </header>
+    <div class="buttonContainer">
+<!-- populated with teams under the same code -->
+        <div class="scoutingSheet">
+            <form>
+                <h1>Autonomous</h1>
+                <div>
+                    <p>Preferred side</p>
+                    <div class="twoButtons">
+                        <button>close</button>
+                        <button>far</button>
+                    </div>
+                    <p># of Pixels</p>
+                    <div class="input">
+                        <input type="number">
+                    </div>
+                    <p>Team prop</p>
+                    <div class="twoButtons">
+                        <button>yes</button>
+                        <button>no</button>
+                    </div>
+                    <p>Delay autonomous</p>
+                    <div class="twoButtons">
+                        <button>yes</button>
+                        <button>no</button>
+                    </div>
+                    <p>Autonomous route</p>
+                    <div class="draw">
+                        <canvas></canvas>
+                    </div>
+                </div>
+                <h1>Teleop</h1>
+                <div>
+                    <p>Average # of pixels</p>
+                    <div class="input">
+                        <input type="number">
+                    </div>
+                    <p>Mosaics</p>
+                    <div class="input">
+                        <input type="number">
+                    </div>
+                    <p>Pefrered route</p>
+                    <div class="draw">
+                        <canvas></canvas>
+                    </div>
+                    <p>Delay Autonomous</p>
+                    <div class="twoButtons">
+                        <button>yes</button>
+                        <button>no</button>
+                    </div>
+                </div>
+                <h1>Endgame</h1>
+                <div>
+                    <p>Drone</p>
+                    <div class="twoButtons">
+                        <button>yes</button>
+                        <button>no</button>
+                    </div>
+                    <p>Suspend</p>
+                    <div class="twoButtons">
+                        <button>yes</button>
+                        <button>no</button>
+                    </div>
+                </div>
+                <h1>Extra</h1>
+                <div>
+                    <p>Human player comunication</p>
+                    <div class="threeButtons">
+                        <button>cards</button>
+                        <button>hand signals</button>
+                        <button>yelling</button>
+                        <button>nothing</button>
+                    </div>
+                    <p>human player prefrences</p>
+                    <div class="twoButtons">
+                        <button>pefrered</button>
+                        <button>not pefrered</button>
+                    </div>
+                    <p>General strategy</p>
+                    <div class="input">
+                        <input type="number">
+                    </div>
+                    <p>Notes</p>
+                    <div class="input">
+                        <input type="number">
+                    </div>
+                </div>
+                <button type="submit"></button>
+            </form>
+
+        </div>
+        <div class="infoPanel">
+
+        </div>
+    </div>
+    <div class="joinPopup">
+
+    </div>
+</body>
+</html>

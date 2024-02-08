@@ -1,0 +1,42 @@
+@font-face {
+    font-family: "abel";
+    src: url("fonts/Abel.ttf");
+    font-display: swap;
+}
+
+:root {
+    --oranage: #f66902ff;
+    --blue: #0061ceff;
+    --border: #000000;
+    --mainbackground: #d2daff;
+    --buttonbackground:#f0f0f0;
+    --gradientbluedark:#f82b2b;
+    --gradientbluelight:#ff8b8b;
+    --gradientreddark:#3358ff;
+    --gradientredlight:#93a7ff;
+    --textcolor: #000000;
+    --hoverbackground: #93a7ff;
+}
+* {
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease-in-out;
+    font-family: abel;
+}
+
+html, body {
+    overflow-x: hidden;
+    height: 100%;
+    color: var(--textcolor);
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    height: 5vw;
+    background-color: var(--blue);
+    z-index: 3;
+}
+.logo {
+    height: 7.3vw;
+}
