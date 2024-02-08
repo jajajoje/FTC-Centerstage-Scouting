@@ -13,7 +13,6 @@
     <header>
         <a href = "https://ftc.ctrlyrobotics.org/home"><img src = "images/logo.svg" alt = "Website Logo" class = "logo"></a>
         <div class="dropdown">
-
             <div class = "credits_box">
                 <a class = "credits_text" href = "http://www.onlinewebfonts.com">Web Fonts</a>
                 <br>
@@ -23,14 +22,14 @@
               </div>
         </div>
     </header>
-    <div class="buttonContainer">
+    <div class="button_container">
 <!-- populated with teams under the same code -->
-        <div class="scoutingSheet">
+        <div class="scouting_sheet">
             <form>
                 <h1>Autonomous</h1>
                 <div>
                     <p>Preferred side</p>
-                    <div class="twoButtons">
+                    <div class="two_buttons">
                         <button>close</button>
                         <button>far</button>
                     </div>
@@ -39,12 +38,12 @@
                         <input type="number">
                     </div>
                     <p>Team prop</p>
-                    <div class="twoButtons">
+                    <div class="two_buttons">
                         <button>yes</button>
                         <button>no</button>
                     </div>
                     <p>Delay autonomous</p>
-                    <div class="twoButtons">
+                    <div class="two_buttons">
                         <button>yes</button>
                         <button>no</button>
                     </div>
@@ -68,7 +67,7 @@
                         <canvas></canvas>
                     </div>
                     <p>Delay Autonomous</p>
-                    <div class="twoButtons">
+                    <div class="two_buttons">
                         <button>yes</button>
                         <button>no</button>
                     </div>
@@ -76,12 +75,12 @@
                 <h1>Endgame</h1>
                 <div>
                     <p>Drone</p>
-                    <div class="twoButtons">
+                    <div class="two_buttons">
                         <button>yes</button>
                         <button>no</button>
                     </div>
                     <p>Suspend</p>
-                    <div class="twoButtons">
+                    <div class="two_buttons">
                         <button>yes</button>
                         <button>no</button>
                     </div>
@@ -89,14 +88,14 @@
                 <h1>Extra</h1>
                 <div>
                     <p>Human player comunication</p>
-                    <div class="threeButtons">
+                    <div class="three_buttons">
                         <button>cards</button>
                         <button>hand signals</button>
                         <button>yelling</button>
                         <button>nothing</button>
                     </div>
                     <p>human player prefrences</p>
-                    <div class="twoButtons">
+                    <div class="two_buttons">
                         <button>pefrered</button>
                         <button>not pefrered</button>
                     </div>
@@ -113,12 +112,15 @@
             </form>
 
         </div>
-        <div class="infoPanel">
+        <div class="info_panel">
 
         </div>
     </div>
-    <div class="joinPopup">
-
+    <div class="join_popup" id="joinPopup" style="display: none;">
+        <p>you dont have a join code saved to your cookies</p>
+        <p>do you want to join or create one?</p>
+        <button onclick="scoutingJoin()">join</button>
+        <button onclick="scoutingCreate()">create</button>
     </div>
 </body>
 </html>
