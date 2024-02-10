@@ -54,9 +54,18 @@ if (cookieData) {
  *
  */
 
-function addScouting(){
-//add to the server then it will pull the data from the server
 
+
+function addScouting(){
+    //add to the server then it will pull the data from the server
+    let scoutPanel = document.getElementById("scoutingSheet")
+    scoutPanel.style.display= "block"
+
+}
+
+function finishAddScouting(){
+    let scoutPanel = document.getElementById("scoutingSheet")
+    scoutPanel.style.display= "none"
 }
 
 function removeScouting(){
@@ -69,17 +78,38 @@ function ftcLookup(){
 
 }
 
+function ftcLookupName(){
+    let teamNumber= document.getElementById("teamNumber").value
+    console.log(teamNumber)
+    }
+
 function scoutingJoin(){
 //joins with code
-
 }
 
 function scoutingCreate(){
 //sends a request to create join code
-
 }
 
 function initializeScouting(joinCode){
 //pulls data from server joning with code
 
 }
+
+
+/*
+ *
+ *           example js
+ * 
+ */
+
+// function fetchData() {
+//     fetch('http://localhost:5501/data') // Assuming your backend is running on port 5501
+//         .then(response => response.json())
+//         .then(data => {
+//         document.getElementById('serverResponse').innerText = data.message;
+//         })
+//         .catch(error => console.error('Error:', error));
+//     }
+
+ftcJoinAsk ()

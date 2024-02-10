@@ -40,3 +40,11 @@ header {
 .logo {
     height: 7.3vw;
 }
+.dropdown_close {
+    display: none;
+}
+.scouting_sheet {
+    display: none;
+    top: 5vw;
+    position: absolute;
+}
