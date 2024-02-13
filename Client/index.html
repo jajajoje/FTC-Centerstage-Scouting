@@ -13,7 +13,8 @@
     <header>
         <button onclick="document.getElementById('scoutingSheet').style.display = 'block'" id="addScoutingTeam" type="button">add</button>
         <a href = "https://ftc.ctrlyrobotics.org/home"><img src = "images/logo.svg" alt = "Website Logo" class = "logo"></a>
-        <div class="dropdown">
+        <button type="button" onclick="addScouting()">add</button>
+        <div class="dropdown_close">
             <div class = "credits_box">
                 <a class = "credits_text" href = "http://www.onlinewebfonts.com">Web Fonts</a>
                 <br>
@@ -24,10 +25,10 @@
         </div>
     </header>
     <div class="button_container">
-<!-- populated with teams under the same code -->
+<!-- populated with teams under the same join code -->
         <div id="scoutingSheet" class="scouting_sheet">
-            <p>Team number</p>
-            <input type="number">
+            <label for="teamNumber">teamnumber</label>
+            <input id="teamNumber" type="text" oninput="ftcLookupName()">
             <h1>Autonomous</h1>
             <div>
                 <p>Preferred side</p>
@@ -123,5 +124,7 @@
         <button onclick="scoutingJoin()">join</button>
         <button onclick="scoutingCreate()">create</button>
     </div>
+    <!-- example html for js express -->
+    <!-- <p id="serverResponse">Loading...</p> -->
 </body>
 </html>
