@@ -37,6 +37,11 @@ header {
     background-color: var(--blue);
     z-index: 3;
 }
+
 .logo {
     height: 7.3vw;
+}
+
+.scouting_sheet {
+    display: none;
 }

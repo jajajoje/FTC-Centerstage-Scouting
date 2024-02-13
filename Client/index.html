@@ -5,12 +5,13 @@
     <meta name="theme-color" media="f0f8ff" content="f0f8ff">
     <meta name="description" content="an intuitive scouting tool for FTC FIRST tech challenge, centerstage 2023-2024">
     <title>FTC Centerstage Scouting</title>
-    <link rel="manifest" href="manifest.webmanifest">
+    <!-- <link rel="manifest" href="manifest.webmanifest"> -->
     <link href="style.css" rel = "stylesheet" type = "text/css">
     <script defer src="index.js"></script>
 </head>
 <body>
     <header>
+        <button onclick="document.getElementById('scoutingSheet').style.display = 'block'" id="addScoutingTeam" type="button">add</button>
         <a href = "https://ftc.ctrlyrobotics.org/home"><img src = "images/logo.svg" alt = "Website Logo" class = "logo"></a>
         <div class="dropdown">
             <div class = "credits_box">
@@ -24,93 +25,93 @@
     </header>
     <div class="button_container">
 <!-- populated with teams under the same code -->
-        <div class="scouting_sheet">
-            <form>
-                <h1>Autonomous</h1>
-                <div>
-                    <p>Preferred side</p>
-                    <div class="two_buttons">
-                        <button>close</button>
-                        <button>far</button>
-                    </div>
-                    <p># of Pixels</p>
-                    <div class="input">
-                        <input type="number">
-                    </div>
-                    <p>Team prop</p>
-                    <div class="two_buttons">
-                        <button>yes</button>
-                        <button>no</button>
-                    </div>
-                    <p>Delay autonomous</p>
-                    <div class="two_buttons">
-                        <button>yes</button>
-                        <button>no</button>
-                    </div>
-                    <p>Autonomous route</p>
-                    <div class="draw">
-                        <canvas></canvas>
-                    </div>
+        <div id="scoutingSheet" class="scouting_sheet">
+            <p>Team number</p>
+            <input type="number">
+            <h1>Autonomous</h1>
+            <div>
+                <p>Preferred side</p>
+                <div class="two_buttons">
+                    <button>close</button>
+                    <button>far</button>
                 </div>
-                <h1>Teleop</h1>
-                <div>
-                    <p>Average # of pixels</p>
-                    <div class="input">
-                        <input type="number">
-                    </div>
-                    <p>Mosaics</p>
-                    <div class="input">
-                        <input type="number">
-                    </div>
-                    <p>Pefrered route</p>
-                    <div class="draw">
-                        <canvas></canvas>
-                    </div>
-                    <p>Delay Autonomous</p>
-                    <div class="two_buttons">
-                        <button>yes</button>
-                        <button>no</button>
-                    </div>
+                <p># of Pixels</p>
+                <div class="input">
+                    <input type="number">
                 </div>
-                <h1>Endgame</h1>
-                <div>
-                    <p>Drone</p>
-                    <div class="two_buttons">
-                        <button>yes</button>
-                        <button>no</button>
-                    </div>
-                    <p>Suspend</p>
-                    <div class="two_buttons">
-                        <button>yes</button>
-                        <button>no</button>
-                    </div>
+                <p>Team prop</p>
+                <div class="two_buttons">
+                    <button>yes</button>
+                    <button>no</button>
                 </div>
-                <h1>Extra</h1>
-                <div>
-                    <p>Human player comunication</p>
-                    <div class="three_buttons">
-                        <button>cards</button>
-                        <button>hand signals</button>
-                        <button>yelling</button>
-                        <button>nothing</button>
-                    </div>
-                    <p>human player prefrences</p>
-                    <div class="two_buttons">
-                        <button>pefrered</button>
-                        <button>not pefrered</button>
-                    </div>
-                    <p>General strategy</p>
-                    <div class="input">
-                        <input type="number">
-                    </div>
-                    <p>Notes</p>
-                    <div class="input">
-                        <input type="number">
-                    </div>
+                <p>Delay autonomous</p>
+                <div class="two_buttons">
+                    <button>yes</button>
+                    <button>no</button>
                 </div>
-                <button type="submit"></button>
-            </form>
-
+                <p>Autonomous route</p>
+                <div class="draw">
+                    <canvas></canvas>
+                </div>
+            </div>
+            <h1>Teleop</h1>
+            <div>
+                <p>Average # of pixels</p>
+                <div class="input">
+                    <input type="number">
+                </div>
+                <p>Mosaics</p>
+                <div class="input">
+                    <input type="number">
+                </div>
+                <p>Pefrered route</p>
+                <div class="draw">
+                    <canvas></canvas>
+                </div>
+                <!-- look at this later? -->
+                <p>Delay Autonomous</p>
+                <div class="two_buttons">
+                    <button>yes</button>
+                    <button>no</button>
+                </div>
+            </div>
+            <h1>Endgame</h1>
+            <div>
+                <p>Drone</p>
+                <div class="two_buttons">
+                    <button>yes</button>
+                    <button>no</button>
+                </div>
+                <p>Suspend</p>
+                <div class="two_buttons">
+                    <button>yes</button>
+                    <button>no</button>
+                </div>
+            </div>
+            <h1>Extra</h1>
+            <div>
+                <p>Human player comunication</p>
+                <div class="three_buttons">
+                    <button>cards</button>
+                    <button>hand signals</button>
+                    <button>yelling</button>
+                    <button>nothing</button>
+                </div>
+                <p>human player prefrences</p>
+                <div class="two_buttons">
+                    <button>pefrered</button>
+                    <button>not pefrered</button>
+                </div>
+                <p>General strategy</p>
+                <div class="input">
+                    <input type="number">
+                </div>
+                <p>Notes</p>
+                <div class="input">
+                    <input type="number">
+                </div>
+            </div>
+            <button onclick="addScouting()" type="submit">submit</button>
         </div>
         <div class="info_panel">
 
