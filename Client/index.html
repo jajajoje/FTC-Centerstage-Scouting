@@ -11,6 +11,7 @@
 </head>
 <body>
     <header>
+        <button onclick="document.getElementById('scoutingSheet').style.display = 'block'" id="addScoutingTeam" type="button">add</button>
         <a href = "https://ftc.ctrlyrobotics.org/home"><img src = "images/logo.svg" alt = "Website Logo" class = "logo"></a>
         <button type="button" onclick="addScouting()">add</button>
         <div class="dropdown_close">
@@ -68,6 +69,7 @@
                 <div class="draw">
                     <canvas></canvas>
                 </div>
+                <!-- look at this later? -->
                 <p>Delay Autonomous</p>
                 <div class="two_buttons">
                     <button>yes</button>
@@ -103,14 +105,14 @@
                 </div>
                 <p>General strategy</p>
                 <div class="input">
-                    <input type="text">
+                    <input type="number">
                 </div>
                 <p>Notes</p>
                 <div class="input">
-                    <input type="text">
+                    <input type="number">
                 </div>
             </div>
-            <button type="submit" onclick="finishAddScouting()">submit</button>
+            <button onclick="addScouting()" type="submit">submit</button>
         </div>
         <div class="info_panel">
 
