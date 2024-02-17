@@ -32,16 +32,16 @@ function updateCookie() {
 }
 
 function parseCookie() {
-let cookies = document.cookie
-let cookieData = cookies
-    .split("; ")
-    .find((cookie) => cookie.startsWith("userData="))
+    let cookies = document.cookie
+    let cookieData = cookies
+        .split("; ")
+        .find((cookie) => cookie.startsWith("userData="))
 
-if (cookieData) {
-    let jsonData = decodeURIComponent(cookieData.split("=")[1])
-    let userData = JSON.parse(jsonData)
-    return(userData)
-}
+    if (cookieData) {
+        let jsonData = decodeURIComponent(cookieData.split("=")[1])
+        let userData = JSON.parse(jsonData)
+        return(userData)
+    }
 }
 
 /*
