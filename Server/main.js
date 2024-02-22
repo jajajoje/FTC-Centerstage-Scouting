@@ -19,24 +19,15 @@ app.listen(port, () => {
   console.log(`Express server is running on port ${port}`);
 });
 
-const config = {
-  server: 'localhost',
-  database: 'YourDatabaseName',
-  user: 'YourUsername',
-  password: 'YourPassword',
-  options: {
-      encrypt: false // For Windows users, set to true if using Express.js to connect to SQL Server
-  }
-};
+const Sequelize = require('sequelize');
 
-sql.connect(config)
-  .then(pool => {
-      console.log('Connected to SQL Server');
+// Initialize Sequelize with connection details
+const sequelize = new Sequelize('database', 'username', 'password', {
+  dialect: 'mysql',
+  host: 'your-database-host',
+  port: '3306',
+});
 
-      // Perform database operations here
+function(initializeSQL){
 
-      sql.close();
-  })
-  .catch(err => {
-      console.error('Error connecting to SQL Server:', err);
-  });
+}

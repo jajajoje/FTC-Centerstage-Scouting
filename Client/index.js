@@ -42,7 +42,7 @@ class Team {
  *
  */
 
-//this will chekc for exisitng join code if not and run a function 
+//this will check for exisitng join code if not and run a function 
 //the function scoutingJoin and scoutingCreate will await response
 function ftcJoinAsk (){
     if(userData == undefined){
@@ -89,31 +89,75 @@ if (cookieData) {
  *                scoutingJoin,
  *
  */
+function draw(canvas, uuid) {
+    
+    // var ctx = canvas.getContext("2d");
+
+    // canvas.addEventListener("mousedown", startDrawing);
+    // canvas.addEventListener("mousemove", draw);
+    // canvas.addEventListener("mouseup", stopDrawing);
+
+    // var isDrawing = false;
+    // var lastX = 0;
+    // var lastY = 0;
+
+    // function startDrawing(event) {
+    //     isDrawing = true;
+    //     [lastX, lastY] = [event.offsetX, event.offsetY];
+    // }
+
+    // function draw(event) {
+    //     if (!isDrawing) return;
+    //     ctx.beginPath();
+    //     ctx.moveTo(lastX, lastY);
+    //     ctx.lineTo(event.offsetX, event.offsetY);
+    //     ctx.strokeStyle = "black";
+    //     ctx.lineWidth = 2;
+    //     ctx.stroke();
+    //     [lastX, lastY] = [event.offsetX, event.offsetY];
+    // }
+
+    // function stopDrawing() {
+    //     isDrawing = false;
+    // }
+
+    
+
+    var ctx = canvas.getContext("2d");
+
+    canvas.width = canvas.clientWidth; // Set canvas width to its CSS width
+    canvas.height = canvas.clientHeight; // Set canvas height to its CSS height
+
+    var isDrawing = false;
+
+    canvas.addEventListener("mousedown", startDrawing);
+    canvas.addEventListener("mousemove", draw);
+    canvas.addEventListener("mouseup", stopDrawing);
+
+    function startDrawing(event) {
+        isDrawing = true;
+        ctx.beginPath();
+        draw(event); // Call draw initially to start drawing from the current position
+    }
+
+    function draw(event) {
+        if (!isDrawing) return;
+        var x = event.offsetX;
+        var y = event.offsetY;
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+    }
+
+    function stopDrawing() {
+        isDrawing = false;
+    }
+}
 
 function addScouting(){
 //add to the server then it will pull the data from the server
-    let teamNumber = document.querySelector("#scoutingSheet input[type='number']").value;
-    let preferredSide = document.querySelector("#scoutingSheet div:nth-child(2) .two_buttons button.selected").textContent;
-    let autoPixels = document.querySelector("#scoutingSheet div:nth-child(2) .input input[type='number']").value;
-    let teamProp = document.querySelector("#scoutingSheet div:nth-child(2) .two_buttons button.selected").textContent;
-    let autoDelay = document.querySelector("#scoutingSheet div:nth-child(2) .two_buttons button.selected").textContent;
-    let autoRoute = document.querySelector("#scoutingSheet div:nth-child(2) .draw canvas").toDataURL();
-    let telePixels = document.querySelector("#scoutingSheet div:nth-child(4) .input input[type='number']").value;
-    let mosaics = document.querySelector("#scoutingSheet div:nth-child(4) .input input[type='number']").value;
-    let teleRoute = document.querySelector("#scoutingSheet div:nth-child(4) .draw canvas").toDataURL();
-    let drone = document.querySelector("#scoutingSheet div:nth-child(6) .two_buttons button.selected").textContent;
-    let suspend = document.querySelector("#scoutingSheet div:nth-child(6) .two_buttons button.selected").textContent;
-    let humanComunication = document.querySelector("#scoutingSheet div:nth-child(8) .three_buttons button.selected").textContent;
-    let humanPrefrences = document.querySelector("#scoutingSheet div:nth-child(8) .two_buttons button.selected").textContent;
-    let generalStrategy = document.querySelector("#scoutingSheet div:nth-child(8) .input input[type='number']").value;
-    let notes = document.querySelector("#scoutingSheet div:nth-child(8) .input input[type='number']").value;
 
-    if (teamNumber !== "" && preferredSide !== "" && autoPixels !== "" && teamProp !== "" && autoDelay !== "" && autoRoute !== "" && telePixels !== "" && mosaics !== "" && teleRoute !== "" && drone !== "" && suspend !== "" && humanComunication !== "" && humanPrefrences !== "" && generalStrategy !== "" && notes !== "") {
-        let newTeam = new Team(teamNumber, preferredSide, autoPixels, teamProp, autoDelay, autoRoute, telePixels, mosaics, teleRoute, drone, suspend, humanComunication, humanPrefrences, generalStrategy, notes);
-        console.log(newTeam); // For demonstration, you can log the object to the console
-    } else {
-        alert("Please fill in all required fields.");
-    }
 }
 
 function removeScouting(){
@@ -139,7 +183,7 @@ function scoutingCreate(){
 function initializeScouting(joinCode){
 //pulls data from server joning with code
 
-}const userData = parseCookie()
+}
 
 /*
  *

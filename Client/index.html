@@ -11,9 +11,8 @@
 </head>
 <body>
     <header>
-        <button onclick="document.getElementById('scoutingSheet').style.display = 'block'" id="addScoutingTeam" type="button">add</button>
-        <a href = "https://ftc.ctrlyrobotics.org/home"><img src = "images/logo.svg" alt = "Website Logo" class = "logo"></a>
-        <button type="button" onclick="addScouting()">add</button>
+        <a href="https://ftc.ctrlyrobotics.org/home"><img src="images/logo.svg" alt="Website Logo" class="logo"></a>
+        <button onclick="document.getElementById('scoutingSheet').style.display = 'block'" class="button_normal" id="addScoutingTeam" type="button">add</button>
         <div class="dropdown_close">
             <div class = "credits_box">
                 <a class = "credits_text" href = "http://www.onlinewebfonts.com">Web Fonts</a>
@@ -27,92 +26,102 @@
     <div class="button_container">
 <!-- populated with teams under the same join code -->
         <div id="scoutingSheet" class="scouting_sheet">
-            <label for="teamNumber">teamnumber</label>
-            <input id="teamNumber" type="text" oninput="ftcLookupName()">
-            <h1>Autonomous</h1>
-            <div>
+            <div class="scoutBasic">
+                <label for="teamNumber">Team Number</label>
+                <br>
+                <input id="teamNumber" class="input_field" type="text" oninput="ftcLookupName()">
+                <br>
+                <label for="teamNumber">Team Name</label>
+                <br>
+                <h1>Enter team number!</h1>
+                <br>
+                <button onclick="addScouting()" type="button" class="button_normal">submit</button>
+            </div>
+            <div class="autoSheet">
+                <h1>Autonomous</h1>
                 <p>Preferred side</p>
                 <div class="two_buttons">
-                    <button>close</button>
-                    <button>far</button>
+                    <button class="button_normal button_right">close</button>
+                    <button class="button_normal button_left">far</button>
                 </div>
                 <p># of Pixels</p>
                 <div class="input">
-                    <input type="number">
+                    <input class="input_field" type="number">
                 </div>
                 <p>Team prop</p>
                 <div class="two_buttons">
-                    <button>yes</button>
-                    <button>no</button>
+                    <button class="button_normal button_right">yes</button>
+                    <button class="button_normal button_left">no</button>
                 </div>
                 <p>Delay autonomous</p>
                 <div class="two_buttons">
-                    <button>yes</button>
-                    <button>no</button>
+                    <button class="button_normal button_right">yes</button>
+                    <button class="button_normal button_left">no</button>
                 </div>
                 <p>Autonomous route</p>
                 <div class="draw">
-                    <canvas></canvas>
+                    <img class="drawImageAuto" src="images/centerstageField.png">
+                    <canvas onclick="draw(this)" class="drawPanel"></canvas>
                 </div>
             </div>
-            <h1>Teleop</h1>
-            <div>
+            <div class="endSheet">
+                <h1>Endgame</h1>
+                <p>Drone</p>
+                <div class="two_buttons">
+                    <button class="button_normal button_right">yes</button>
+                    <button class="button_normal button_left">no</button>
+                </div>
+                <p>Suspend</p>
+                <div class="two_buttons">
+                    <button class="button_normal button_right">yes</button>
+                    <button class="button_normal button_left">no</button>
+                </div>
+            </div>
+            <div class="teleSheet">
+                <h1>Teleop</h1>
                 <p>Average # of pixels</p>
                 <div class="input">
-                    <input type="number">
+                    <input class="input_field" type="number">
                 </div>
                 <p>Mosaics</p>
                 <div class="input">
-                    <input type="number">
+                    <input class="input_field" type="number">
                 </div>
                 <p>Pefrered route</p>
                 <div class="draw">
-                    <canvas></canvas>
+                    <img class="drawImageTele" src="images/centerstageField.png">
+                    <canvas onclick="draw(this)" class="drawPanel"></canvas>
                 </div>
                 <!-- look at this later? -->
                 <p>Delay Autonomous</p>
                 <div class="two_buttons">
-                    <button>yes</button>
-                    <button>no</button>
+                    <button class="button_normal button_right">yes</button>
+                    <button class="button_normal button_left">no</button>
                 </div>
             </div>
-            <h1>Endgame</h1>
-            <div>
-                <p>Drone</p>
-                <div class="two_buttons">
-                    <button>yes</button>
-                    <button>no</button>
-                </div>
-                <p>Suspend</p>
-                <div class="two_buttons">
-                    <button>yes</button>
-                    <button>no</button>
-                </div>
-            </div>
-            <h1>Extra</h1>
-            <div>
+            <div class="extraSheet">
+                <h1>Extra</h1>
                 <p>Human player comunication</p>
                 <div class="three_buttons">
-                    <button>cards</button>
-                    <button>hand signals</button>
-                    <button>yelling</button>
-                    <button>nothing</button>
+                    <button class="button_normal button_right">cards</button>
+                    <button class="button_normal button_center">hands</button>
+                    <button class="button_normal button_center">yelling</button>
+                    <button class="button_normal button_left">nothing</button>
                 </div>
                 <p>human player prefrences</p>
                 <div class="two_buttons">
-                    <button>pefrered</button>
-                    <button>not pefrered</button>
+                    <button class="button_normal button_right">yes</button>
+                    <button class="button_normal button_left">no</button>
                 </div>
                 <p>General strategy</p>
                 <div class="input">
-                    <input type="number">
+                    <input class="input_field" type="text">
                 </div>
                 <p>Notes</p>
                 <div class="input">
-                    <input type="number">
+                    <input class="input_field" type="text">
                 </div>
             </div>
-            <button onclick="addScouting()" type="submit">submit</button>
         </div>
         <div class="info_panel">
 
