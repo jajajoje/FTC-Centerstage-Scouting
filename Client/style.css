@@ -59,10 +59,12 @@ header {
     background-color:var(--mainbackground);
 }
 .button_left{
-    border-radius: 0 0.5vw 0.5vw 0;
+    border-radius: 0.5vw 0 0 0.5vw; 
+    border-right: 0.1vw solid var(--border);
 }
 .button_right{
-    border-radius: 0.5vw 0 0 0.5vw; 
+    border-radius: 0 0.5vw 0.5vw 0;
+    border-left: 0.1vw solid var(--border);
 }
 .button_center{
     border-radius: 0;
@@ -70,7 +72,7 @@ header {
 .input_field{
     border: 0.2vw solid var(--border);
     border-radius: 0.5vw;
-    width: 6vw;
+    width: 8vw;
     padding: 0.2vw;
     background-color:var(--mainbackground);
 }
@@ -94,20 +96,49 @@ header {
     z-index: 1;
 }
 .drawPanel, .drawImageAuto, .drawImageTele{
-    position: absolute;
     height: 13vw;
     width: 13vw;
-    left: 18.5vw;
+}
+.drawPanel{
+    position: absolute;
+    left: 49%;
 }
 .drawPanel:hover{
     cursor:crosshair
 }
+.sheet{
+    border: 0.2vw solid var(--border);
+    padding: 1vw;
+    border-radius: 1.5vw;
+}
+.innerBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1%;
+
+}
+.secondaryBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.two_buttons{
+    display: flex;
+}
 
 .autoSheet, .endSheet, .teleSheet, .extraSheet{
-    position: fixed;
-    width: 50vw;
-    height: 30vw;
+    flex-direction: column;
+    width: 30vw;
+    height: fit-content;
     text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.autoSheet, .endSheet{
+    padding-right: 2vw;
 }
 .teleSheet, .extraSheet{
     left: 50vw;
