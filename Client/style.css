@@ -62,8 +62,12 @@ header {
 .button_left{
     border-radius: 0.5vw 0 0 0.5vw; 
     border-right: 0.1vw solid var(--border);
+    border-radius: 0.5vw 0 0 0.5vw; 
+    border-right: 0.1vw solid var(--border);
 }
 .button_right{
+    border-radius: 0 0.5vw 0.5vw 0;
+    border-left: 0.1vw solid var(--border);
     border-radius: 0 0.5vw 0.5vw 0;
     border-left: 0.1vw solid var(--border);
 }
