@@ -8,12 +8,12 @@ let masterList = null
 class Team {
     constructor(teamNumber, teamName, preferredSide,
                 autoPixels, teamProp, autoDelay, autoRoute,
-                telePixels, mosaiacs, teleRoute, drone, suspend,
-                humanComunication, humanPrefrences, generalStrategy, notes) {
+                telePixels, mosaics, drone, suspend,
+                humanComm, humanPrefrences, generalStrategy, notes) {
       // General properties
       this.teamNumber = teamNumber;
       this.teamName = teamName;
-      this.humanComunication = humanComunication;
+      this.humanComm = humanComm;
       this.humanPrefrences = humanPrefrences;
       this.generalStrategy = generalStrategy;
       this.notes = notes;
@@ -27,8 +27,7 @@ class Team {
   
       // Teleop properties
       this.telePixels = telePixels;
-      this.mosaiacs = mosaiacs;
-      this.teleRoute = teleRoute;
+      this.mosaics = mosaics;
   
       // Endgame properties
       this.drone = drone;
@@ -89,7 +88,7 @@ if (cookieData) {
  *                scoutingJoin,
  *
  */
-function draw(canvas, uuid) {
+function draw(canvas) {
     
     // var ctx = canvas.getContext("2d");
 
@@ -121,8 +120,6 @@ function draw(canvas, uuid) {
     //     isDrawing = false;
     // }
 
-    
-
     var ctx = canvas.getContext("2d");
 
     canvas.width = canvas.clientWidth; // Set canvas width to its CSS width
@@ -135,8 +132,8 @@ function draw(canvas, uuid) {
     canvas.addEventListener("mouseup", stopDrawing);
 
     function startDrawing(event) {
-        isDrawing = true;
         ctx.beginPath();
+        isDrawing = true;
         draw(event); // Call draw initially to start drawing from the current position
     }
 
@@ -156,104 +153,19 @@ function draw(canvas, uuid) {
 }
 
 function addScouting(){
-//add to the server then it will pull the data from the server
-
-}
-
-function removeScouting(){
-//send the request to delete such data
-
-}
-
-function ftcLookup(){
-//comunication to grab info from api through server
-
-}
-
-function scoutingJoin(){
-//joins with code
-
-}
-
-function scoutingCreate(){
-//sends a request to create join code
-
-}
-
-function initializeScouting(joinCode){
-//pulls data from server joning with code
-
-}
-
-/*
- *
- *           end of const varibles
- *
- */
-
-//this will chekc for exisitng join code if not and run a function 
-//the function scoutingJoin and scoutingCreate will await response
-function ftcJoinAsk (){
-    if(userData == undefined){
-        let joinPopup = document.getElementById("joinPopup")
-        joinPopup.style.display = "block"
-    }else{
-        initializeScouting()
-    }
-}
-
-//cookies for join code
-function newCookie() {
-    userData = {
-        joinCode: 0
-    }
-    let jsonData = JSON.stringify(userData)
-    document.cookie = `userData=${encodeURIComponent(jsonData)}; expires=Tue, 30 Dec 2024 12:00:00 UTC; path=/`
-}
-
-function updateCookie() {
-    let jsonData = JSON.stringify(userData)
-    document.cookie = `userData=${encodeURIComponent(jsonData)}; expires=Tue, 30 Dec 2024 12:00:00 UTC; path=/`
-}
-
-function parseCookie() {
-    let cookies = document.cookie
-    let cookieData = cookies
-        .split("; ")
-        .find((cookie) => cookie.startsWith("userData="))
-
-    if (cookieData) {
-        let jsonData = decodeURIComponent(cookieData.split("=")[1])
-        let userData = JSON.parse(jsonData)
-        return(userData)
-    }
-}
-
-/*
- *
- *           end of autorun javascript
- *      anything below is not run on startup
- *              the exeptions are... 
- *              initializeScouting,
- *                scoutingJoin,
- *
- */
-
-
-
-function addScouting(){
     //add to the server then it will pull the data from the server
     let scoutPanel = document.getElementById("scoutingSheet")
     scoutPanel.style.display= "block"
 
 }
 
-function finishAddScouting(){
+function finishAddScouting(joinCode){
+    //adds
     let scoutPanel = document.getElementById("scoutingSheet")
     scoutPanel.style.display= "none"
 }
 
-function removeScouting(){
+function removeScouting(teamName,joinCode){
 //send the request to delete such data
 
 }
@@ -266,7 +178,7 @@ function ftcLookup(){
 function ftcLookupName(){
     let teamNumber= document.getElementById("teamNumber").value
     console.log(teamNumber)
-    }
+}
 
 function scoutingJoin(){
 //joins with code

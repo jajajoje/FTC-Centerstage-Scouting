@@ -1,13 +1,20 @@
+require('dotenv').config()
 const express = require('express');
-const sql = require('mssql');
-const cors = require('cors'); // Import the cors middleware remove for hosting?
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const sql_lib = require('mysql')
 
 const app = express();
-const port = 5501; // Use port 5501 for the Express.js server
+const port = process.env.PORT || 3000;
+const sql = sql_lib.createPool({
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME,
+    waitForConnections: true
+})
 
 // Use the cors middleware to allow cross-origin requests remove for hosting?
-app.use(cors());
-
 // Define a route that returns JSON data
 app.get('/data', (req, res) => {
   const responseData = { message: 'Hello from the server!' };
