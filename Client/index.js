@@ -1,39 +1,54 @@
 //cookies (holds join code)
 const userData = parseCookie()
-//current object of interest
+//current team of interest
 let currentSelector = null
 //holds data related to teams scouting
 let masterList = null
 
 class Team {
-    constructor(teamNumber, teamName, preferredSide,
-                autoPixels, teamProp, autoDelay, autoRoute,
-                telePixels, mosaics, drone, suspend,
-                humanComm, humanPrefrences, generalStrategy, notes) {
+    constructor(teamNumber, teamName, humanComm, humanPreferences, notes, preferredSide, autoPixels, teamProp, autoDelay, autoRoute, telePixels, mosaics, drone, suspend) {
       // General properties
-      this.teamNumber = teamNumber;
-      this.teamName = teamName;
-      this.humanComm = humanComm;
-      this.humanPrefrences = humanPrefrences;
-      this.generalStrategy = generalStrategy;
-      this.notes = notes;
+      this.teamNumber = teamNumber; // integer <= 5 digits
+      this.teamName = teamName; //string can be quite long upwards of 30 chars
+      this.humanComm = humanComm; //integer
+      this.humanPreferences = humanPreferences; //boolean
+      this.notes = notes; //medium text
   
       // Auto properties
-      this.preferredSide = preferredSide;
-      this.autoPixels = autoPixels;
-      this.teamProp = teamProp;
-      this.autoDelay = autoDelay;
-      this.autoRoute = autoRoute;
+      this.preferredSide = preferredSide; //boolean
+      this.autoPixels = autoPixels; //integer
+      this.teamProp = teamProp; // boolean
+      this.autoDelay = autoDelay; //boolean
+      this.autoRoute = autoRoute; //image, preferably blox datatype
   
       // Teleop properties
-      this.telePixels = telePixels;
-      this.mosaics = mosaics;
+      this.telePixels = telePixels; //integer 8 chars
+      this.mosaics = mosaics; //integer
   
       // Endgame properties
-      this.drone = drone;
-      this.suspend = suspend;
+      this.drone = drone; //boolean
+      this.suspend = suspend; //boolean
     }
-  }
+}
+
+const exampleTeam = new Team(
+    12345, // teamNumber
+    "Example Team", // teamName
+    5, // humanComm
+    true, // humanPreferences
+    "Example notes for the team", // notes
+    true, // preferredSide
+    100, // autoPixels
+    false, // teamProp
+    true, // autoDelay
+    "example-route.jpg", // autoRoute
+    200, // telePixels
+    3, // mosaics
+    false, // drone
+    true // suspend
+);
+
+// updateTeam(exampleTeam, sql,)
 
 /*
  *
@@ -53,9 +68,9 @@ function ftcJoinAsk (){
 }
 
 //cookies for join code
-function newCookie() {
+function newCookie(code) {
     userData = {
-        joinCode: 0
+        joinCode: code
     }
     let jsonData = JSON.stringify(userData)
     document.cookie = `userData=${encodeURIComponent(jsonData)}; expires=Tue, 30 Dec 2024 12:00:00 UTC; path=/`
@@ -160,12 +175,12 @@ function addScouting(){
 }
 
 function finishAddScouting(joinCode){
-    //adds
+    //adds the scouted team to the server list and client list
     let scoutPanel = document.getElementById("scoutingSheet")
     scoutPanel.style.display= "none"
 }
 
-function removeScouting(teamName,joinCode){
+function removeScouting(currentSelector,joinCode){
 //send the request to delete such data
 
 }
@@ -180,19 +195,57 @@ function ftcLookupName(){
     console.log(teamNumber)
 }
 
-function scoutingJoin(){
-//joins with code
-}
-
-function scoutingCreate(){
-//sends a request to create join code
+function scoutingGroupCreate(){
+    //sends a request to create join code to the server
+    fetch('/codeCreate',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => {
+        if(res.ok) {
+            return res.json()
+        }
+        throw new Error('Failed to create join code')
+    })
+    .then(data => {
+        newCookie(data.joinCode)
+        userData = parseCookie()
+    })
+    .catch(error => {
+        console.error('Error:', error)
+    })
 }
 
 function initializeScouting(joinCode){
-//pulls data from server joning with code
-
+//pulls data from server joning with code and populates masterList
+function scoutingGroupCreate(){
+    //sends a request to create join code to the server
+    fetch('/codeCreate',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => {
+        if(res.ok) {
+            return res.json()
+        }
+        throw new Error('Failed to create join code')
+    })
+    .then(data => {
+        newCookie(data.joinCode)
+        userData = parseCookie()
+    })
+    .catch(error => {
+        console.error('Error:', error)
+    })
 }
 
+function buttonPopulate(){
+//create the buttons from the masterList
+}
 
 /*
  *
@@ -210,3 +263,4 @@ function initializeScouting(joinCode){
 //     }
 
 ftcJoinAsk ()
+
