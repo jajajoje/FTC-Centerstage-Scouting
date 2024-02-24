@@ -43,10 +43,21 @@ header {
     font-size: 2vw;
 }
 
-#addScoutingTeam{
+.join_popup{
+    position: fixed;
+    top: 50vh;
+    left: 50vw;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+
+#addScoutingTeam, #removeScoutingTeam{
     position: absolute;
     top: 1.1vw;
     left: 6.1vw
+}
+#removeScoutingTeam{
+    left: 12.5vw
 }
 
 .logo {

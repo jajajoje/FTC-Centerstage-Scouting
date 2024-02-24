@@ -15,8 +15,8 @@
 <body>
     <header>
         <a href="https://ftc.ctrlyrobotics.org/home"><img src="images/logo.svg" alt="Website Logo" class="logo"></a>
-        <button onclick="document.getElementById('scoutingSheet').style.display = 'block'" class="button_normal"
-            id="addScoutingTeam" type="button">add</button>
+        <button onclick="document.getElementById('scoutingSheet').style.display = 'block'" class="button_normal" id="addScoutingTeam" type="button">Add</button>
+        <button onclick="removeScouting()" class="button_normal" id="removeScoutingTeam">Remove</button>
         <div class="dropdown_close">
             <div class="credits_box">
                 <a class="credits_text" href="http://www.onlinewebfonts.com">Web Fonts</a>
@@ -143,10 +143,10 @@
         </div>
     </div>
     <div class="join_popup" id="joinPopup" style="display: none;">
-        <p>you dont have a join code saved to your cookies</p>
-        <p>do you want to join or create one?</p>
-        <button onclick="scoutingJoin()">join</button>
-        <button onclick="scoutingCreate()">create</button>
+        <h1 class="title_text">you dont have a join code saved to your cookies</h1>
+        <h1 class="title_text">do you want to join or create one?</h1>
+        <button onclick="scoutingJoin()" class="button_normal">join</button>
+        <button onclick="scoutingCreate()" class="button_normal">create</button>
     </div>
     <!-- example html for js express -->
     <!-- <p id="serverResponse">Loading...</p> -->
