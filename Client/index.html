@@ -15,8 +15,8 @@
 <body>
     <header>
         <a href="https://ftc.ctrlyrobotics.org/home"><img src="images/logo.svg" alt="Website Logo" class="logo"></a>
-        <button onclick="document.getElementById('scoutingSheet').style.display = 'block'" class="button_normal"
-            id="addScoutingTeam" type="button">add</button>
+        <button onclick="document.getElementById('scoutingSheet').style.display = 'block'" class="button_normal" id="addScoutingTeam" type="button">Add</button>
+        <button onclick="removeScouting()" class="button_normal" id="removeScoutingTeam">Remove</button>
         <div class="dropdown_close">
             <div class="credits_box">
                 <a class="credits_text" href="http://www.onlinewebfonts.com">Web Fonts</a>
@@ -30,115 +30,123 @@
     <div class="button_container">
         <!-- populated with teams under the same join code -->
         <div id="scoutingSheet" class="scouting_sheet">
-            <div class="scoutBasic">
-                <label for="teamNumber">Team Number</label>
-                <br>
-                <input id="teamNumber" class="input_field" type="text" oninput="ftcLookupName()">
-                <br>
-                <label for="teamNumber">Team Name</label>
-                <br>
-                <h1>Enter team number!</h1>
-                <br>
-                <button onclick="addScouting()" type="button" class="button_normal">submit</button>
-            </div>
-            <div class="sheetContainer secondaryBox">
-                <div class="sheetContainerColOne innerBox">
-                    <div class="sheet autoSheet">
-                        <h1>Autonomous</h1>
-                        <div class="secondaryBox">
-                            <div class="innerBox">
-                                <p>Preferred side</p>
-                                <div class="two_buttons">
-                                    <button class="button_normal button_left">close</button>
-                                    <button class="button_normal button_right">far</button>
+            <table>
+                <tbody>
+                  <tr>
+                    <th colspan="2">
+                        <div class="sheet">
+                            <button onclick="addScouting()" type="button" class="button_normal">submit</button>
+                            <div class="secondary_box">
+                                <div class="inner_box">
+                                    <label for="teamNumber">Team Number</label>
+                                    <input id="teamNumber" class="input_field" type="text" oninput="ftcLookupName()">
                                 </div>
-                                <p># of Pixels</p>
-                                <div class="input">
-                                    <input class="input_field" type="number">
-                                </div>
-                                <p>Team prop</p>
-                                <div class="two_buttons">
-                                    <button class="button_normal button_left">yes</button>
-                                    <button class="button_normal button_right">no</button>
-                                </div>
-                                <p>Delay autonomous</p>
-                                <div class="two_buttons">
-                                    <button class="button_normal button_left">yes</button>
-                                    <button class="button_normal button_right">no</button>
+                                <div class="inner_box">
+                                    <label>Team Name</label>
+                                    <h1 id="teamName" class="input_field">Enter team number!</h1>
                                 </div>
                             </div>
-                            <div class="innerBox">
-                                <div class="draw">
+                        </div>
+                    </th>
+                  </tr>
+                  <tr>
+                    <td>
+                        <div class="auto_sheet">
+                            <h1 class="title_text">Autonomous</h1>
+                            <div class="secondary_box">
+                                <div class="inner_box">
+                                    <p>Preferred side</p>
+                                    <div class="two_buttons">
+                                        <button class="button_normal button_left">close</button>
+                                        <button class="button_normal button_right">far</button>
+                                    </div>
+                                    <p># of Pixels</p>
+                                    <div class="input">
+                                        <input class="input_field" type="number">
+                                    </div>
+                                    <p>Team prop</p>
+                                    <div class="two_buttons">
+                                        <button class="button_normal button_left">yes</button>
+                                        <button class="button_normal button_right">no</button>
+                                    </div>
+                                    <p>Delay autonomous</p>
+                                    <div class="two_buttons">
+                                        <button class="button_normal button_left">yes</button>
+                                        <button class="button_normal button_right">no</button>
+                                    </div>
+                                </div>
+                                <div class="draw inner_box">
                                     <p>Autonomous route</p>
-                                    <canvas onclick="draw(this)" class="drawPanel"></canvas>
+                                    <canvas onclick="draw(this)" class="draw_panel"></canvas>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="sheet endSheet">
-                        <h1>Teleop/Endgame</h1>
-                        <div class="secondaryBox">
-                            <div class="innerBox">
-                                <p>Drone</p>
-                                <div class="two_buttons">
-                                    <button class="button_normal button_left">yes</button>
-                                    <button class="button_normal button_right">no</button>
-                                </div>
-                                <p>Suspend</p>
-                                <div class="two_buttons">
-                                    <button class="button_normal button_left">yes</button>
-                                    <button class="button_normal button_right">no</button>
-                                </div>
-                                <p>Pixel Stack</p>
-                                <div class="two_buttons">
-                                    <button class="button_normal button_left">yes</button>
-                                    <button class="button_normal button_right">no</button>
-                                </div>
+                    </td>
+                    <td rowspan="2">
+                        <div class="extra_sheet">
+                            <h1 class="title_text">Extra</h1>
+                            <p>Human player comunication</p>
+                            <div class="four_buttons secondary_box">
+                                <button class="button_normal button_left">cards</button>
+                                <button class="button_normal button_center">hands</button>
+                                <button class="button_normal button_center">yelling</button>
+                                <button class="button_normal button_right">nothing</button>
                             </div>
-                            <div class="innerBox">
-                                <p>Average # of pixels</p>
-                                <div class="input">
-                                    <input class="input_field" type="number">
-                                </div>
-                                <p>Mosaics</p>
-                                <div class="input">
-                                    <input class="input_field" type="number">
-                                </div>
+                            <p>human player prefrences</p>
+                            <div class="two_buttons secondary_box">
+                                <button class="button_normal button_left">yes</button>
+                                <button class="button_normal button_right">no</button>
+                            </div>
+                            <p>General strategy/Notes</p>
+                            <div class="input">
+                                <textarea class="text_area input_field"></textarea>
                             </div>
                         </div>
-                    </div>
-                    <div class="extraSheet sheet">
-                        <h1>Extra</h1>
-                        <p>Human player comunication</p>
-                        <div class="four_buttons secondaryBox">
-                            <button class="button_normal button_left">cards</button>
-                            <button class="button_normal button_center">hands</button>
-                            <button class="button_normal button_center">yelling</button>
-                            <button class="button_normal button_right">nothing</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <div class="tele_end_sheet">
+                            <h1 class="title_text">Teleop/Endgame</h1>
+                            <div class="secondary_box">
+                                <div class="inner_box">
+                                    <p>Drone</p>
+                                    <div class="two_buttons">
+                                        <button class="button_normal button_left">yes</button>
+                                        <button class="button_normal button_right">no</button>
+                                    </div>
+                                    <p>Suspend</p>
+                                    <div class="two_buttons">
+                                        <button class="button_normal button_left">yes</button>
+                                        <button class="button_normal button_right">no</button>
+                                    </div>
+                                </div>
+                                <div class="inner_box">
+                                    <p>Average # of pixels</p>
+                                    <div class="input">
+                                        <input class="input_field" type="number">
+                                    </div>
+                                    <p>Mosaics</p>
+                                    <div class="input">
+                                        <input class="input_field" type="number">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <p>human player prefrences</p>
-                        <div class="two_buttons secondaryBox">
-                            <button class="button_normal button_left">yes</button>
-                            <button class="button_normal button_right">no</button>
-                        </div>
-                        <p>General strategy/Notes</p>
-                        <div class="input">
-                        <textarea class="textArea input_field"></textarea>
-                </div>
-            </div>
-            </div>
-            
-        </div>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
         </div>
         <div class="info_panel">
 
         </div>
     </div>
     <div class="join_popup" id="joinPopup" style="display: none;">
-        <p>you dont have a join code saved to your cookies</p>
-        <p>do you want to join or create one?</p>
-        <button onclick="scoutingJoin()">join</button>
-        <button onclick="scoutingGroupCreate()">create</button>
+        <h1 class="title_text">you dont have a join code saved to your cookies</h1>
+        <h1 class="title_text">do you want to join or create one?</h1>
+        <button onclick="scoutingJoin()" class="button_normal">join</button>
+        <button onclick="scoutingCreate()" class="button_normal">create</button>
     </div>
     <!-- example html for js express -->
     <!-- <p id="serverResponse">Loading...</p> -->
