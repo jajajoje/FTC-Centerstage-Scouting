@@ -27,7 +27,8 @@
             </div>
         </div>
     </header>
-    <div class="button_container">
+    <div id="transitionBackground" class="transition_background"></div>
+    <div id="buttonContainer" class="button_container">
         <!-- populated with teams under the same join code -->
         <div id="scoutingSheet" class="scouting_sheet">
             <table>
@@ -35,7 +36,7 @@
                   <tr>
                     <th colspan="2">
                         <div class="sheet">
-                            <button onclick="addScouting()" type="button" class="button_normal">submit</button>
+                            <button onclick="finishAddScouting()" type="button" class="button_normal">submit</button>
                             <div class="secondary_box">
                                 <div class="inner_box">
                                     <label for="teamNumber">Team Number</label>
@@ -57,8 +58,10 @@
                                 <div class="inner_box">
                                     <p>Preferred side</p>
                                     <div class="two_buttons">
-                                        <button class="button_normal button_left">close</button>
-                                        <button class="button_normal button_right">far</button>
+                                        <input  type="radio" id="preferredSideYes" name="preferredSide" value="1" class="radio_normal radio_normal_l">
+                                        <label for="preferredSideYes">Close</label>
+                                        <input  type="radio" id="preferredSideNo" name="preferredSide" value="0" class="radio_normal radio_normal_r">
+                                        <label for="preferredSideNo">Far</label>
                                     </div>
                                     <p># of Pixels</p>
                                     <div class="input">
@@ -66,13 +69,17 @@
                                     </div>
                                     <p>Team prop</p>
                                     <div class="two_buttons">
-                                        <button class="button_normal button_left">yes</button>
-                                        <button class="button_normal button_right">no</button>
+                                        <input  type="radio" id="teamPropYes" name="teamProp" value="1" class="radio_normal radio_normal_l">
+                                        <label for="teamPropYes">Close</label>
+                                        <input  type="radio" id="teamPropNo" name="teamProp" value="0" class="radio_normal radio_normal_r">
+                                        <label for="teamPropNo">Far</label>
                                     </div>
                                     <p>Delay autonomous</p>
                                     <div class="two_buttons">
-                                        <button class="button_normal button_left">yes</button>
-                                        <button class="button_normal button_right">no</button>
+                                        <input  type="radio" id="autoDelayYes" name="autoDelay" value="1" class="radio_normal radio_normal_l">
+                                        <label for="autoDelayYes">Close</label>
+                                        <input  type="radio" id="autoDelayNo" name="autoDelay" value="0" class="radio_normal radio_normal_r">
+                                        <label for="autoDelayNo">Far</label>
                                     </div>
                                 </div>
                                 <div class="draw inner_box">
@@ -87,15 +94,21 @@
                             <h1 class="title_text">Extra</h1>
                             <p>Human player comunication</p>
                             <div class="four_buttons secondary_box">
-                                <button class="button_normal button_left">cards</button>
-                                <button class="button_normal button_center">hands</button>
-                                <button class="button_normal button_center">yelling</button>
-                                <button class="button_normal button_right">nothing</button>
+                                <input type="radio" id="communicationCards" name="communication" value="0" class="radio_normal radio_normal_l">
+                                <label for="communicationCards">Cards</label>
+                                <input type="radio" id="communicationHands" name="communication" value="1" class="radio_normal radio_normal_c">
+                                <label for="communicationHands">Hands</label>
+                                <input type="radio" id="communicationYelling" name="communication" value="2" class="radio_normal radio_normal_c">
+                                <label for="communicationYelling">Yelling</label>
+                                <input type="radio" id="communicationNothing" name="communication" value="3" class="radio_normal radio_normal_r">
+                                <label for="communicationNothing">Nothing</label>
                             </div>
                             <p>human player prefrences</p>
                             <div class="two_buttons secondary_box">
-                                <button class="button_normal button_left">yes</button>
-                                <button class="button_normal button_right">no</button>
+                                <input  type="radio" id="humanPreferencesYes" name="humanPreferences" value="1" class="radio_normal radio_normal_l">
+                                <label for="humanPreferencesYes">Yes</label>
+                                <input  type="radio" id="humanPreferencesNo" name="humanPreferences" value="0" class="radio_normal radio_normal_r">
+                                <label for="humanPreferencesNo">No</label>
                             </div>
                             <p>General strategy/Notes</p>
                             <div class="input">
@@ -112,13 +125,17 @@
                                 <div class="inner_box">
                                     <p>Drone</p>
                                     <div class="two_buttons">
-                                        <button class="button_normal button_left">yes</button>
-                                        <button class="button_normal button_right">no</button>
+                                        <input  type="radio" id="droneYes" name="drone" value="1" class="radio_normal radio_normal_l">
+                                        <label for="droneYes">Close</label>
+                                        <input  type="radio" id="droneNo" name="drone" value="0" class="radio_normal radio_normal_r">
+                                        <label for="droneNo">Far</label>
                                     </div>
                                     <p>Suspend</p>
                                     <div class="two_buttons">
-                                        <button class="button_normal button_left">yes</button>
-                                        <button class="button_normal button_right">no</button>
+                                        <input  type="radio" id="suspendYes" name="suspend" value="1" class="radio_normal radio_normal_l">
+                                        <label for="suspendYes">Close</label>
+                                        <input  type="radio" id="suspendNo" name="suspend" value="0" class="radio_normal radio_normal_r">
+                                        <label for="suspendNo">Far</label>
                                     </div>
                                 </div>
                                 <div class="inner_box">
@@ -146,7 +163,7 @@
         <h1 class="title_text">you dont have a join code saved to your cookies</h1>
         <h1 class="title_text">do you want to join or create one?</h1>
         <button onclick="scoutingJoin()" class="button_normal">join</button>
-        <button onclick="scoutingCreate()" class="button_normal">create</button>
+        <button onclick="scoutingGroupCreate()" class="button_normal">create</button>
     </div>
     <!-- example html for js express -->
     <!-- <p id="serverResponse">Loading...</p> -->

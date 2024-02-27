@@ -1,9 +1,11 @@
  //cookies (holds join code)
-const userData = parseCookie()
+let userData = parseCookie()
 //current team of interest
 let currentSelector = null
 //holds data related to teams scouting
-let masterList = null
+let masterList = []
+//hold the DOM objects  for buttons
+let buttonList = []
 
 class Team {
     constructor(teamNumber, teamName, humanComm, humanPreferences, notes, preferredSide, autoPixels, teamProp, autoDelay, autoRoute, telePixels, mosaics, drone, suspend) {
@@ -31,28 +33,28 @@ class Team {
     }
 }
 
-const exampleTeam = new Team(
-    12345, // teamNumber
-    "Example Team", // teamName
-    5, // humanComm
-    true, // humanPreferences
-    "Example notes for the team", // notes
-    true, // preferredSide
-    100, // autoPixels
-    false, // teamProp
-    true, // autoDelay
-    "example-route.jpg", // autoRoute
-    200, // telePixels
-    3, // mosaics
-    false, // drone
-    true // suspend
-);
+// const exampleTeam = new Team(
+//     12345, // teamNumber
+//     "Example Team", // teamName
+//     3, // humanComm
+//     true, // humanPreferences
+//     "Example notes for the team", // notes
+//     true, // preferredSide
+//     1, // autoPixels
+//     false, // teamProp
+//     true, // autoDelay
+//     "example-route.jpg", // autoRoute
+//     16, // telePixels
+//     3, // mosaics
+//     false, // drone
+//     true // suspend
+// );
 
 // updateTeam(exampleTeam, sql,)
 
 /*
  *
- *           end of const varibles
+ *           end of main varibles
  *
  */
 
@@ -63,7 +65,7 @@ function ftcJoinAsk (){
         let joinPopup = document.getElementById("joinPopup")
         joinPopup.style.display = "block"
     }else{
-        initializeScouting()
+        initializeScouting(userData[joinCode])
     }
 }
 
@@ -135,16 +137,16 @@ function draw(canvas) {
     //     isDrawing = false;
     // }
 
-    var ctx = canvas.getContext("2d");
+    var ctx = canvas.getContext("2d")
 
     canvas.width = canvas.clientWidth; // Set canvas width to its CSS width
     canvas.height = canvas.clientHeight; // Set canvas height to its CSS height
 
     var isDrawing = false;
 
-    canvas.addEventListener("mousedown", startDrawing);
-    canvas.addEventListener("mousemove", draw);
-    canvas.addEventListener("mouseup", stopDrawing);
+    canvas.addEventListener("mousedown", startDrawing)
+    canvas.addEventListener("mousemove", draw)
+    canvas.addEventListener("mouseup", stopDrawing)
 
     function startDrawing(event) {
         ctx.beginPath();
@@ -153,13 +155,13 @@ function draw(canvas) {
     }
 
     function draw(event) {
-        if (!isDrawing) return;
-        var x = event.offsetX;
-        var y = event.offsetY;
-        ctx.lineTo(x, y);
-        ctx.strokeStyle = "black";
-        ctx.lineWidth = 2;
-        ctx.stroke();
+        if (!isDrawing) return
+        var x = event.offsetX
+        var y = event.offsetY
+        ctx.lineTo(x, y)
+        ctx.strokeStyle = "black"
+        ctx.lineWidth = 2
+        ctx.stroke()
     }
 
     function stopDrawing() {
@@ -178,6 +180,26 @@ function finishAddScouting(joinCode){
     //adds the scouted team to the server list and client list
     let scoutPanel = document.getElementById("scoutingSheet")
     scoutPanel.style.display= "none"
+      // Extracting data from HTML
+    var teamNumber = document.getElementById('teamNumber').value;
+    var teamName = document.getElementById('teamName').textContent;
+    var humanComm = document.querySelector('input[name="communication"]:checked').value;
+    var humanPreferences = document.querySelector('input[name="humanPreferences"]:checked').value;
+    var notes = document.querySelector('.text_area').value;
+    var preferredSide = document.querySelector('input[name="preferredSide"]:checked').value === "1";
+    var autoPixels = document.querySelector('.auto_sheet input[type="number"]').value;
+    var teamProp = document.querySelector('input[name="teamProp"]:checked').value === "1";
+    var autoDelay = document.querySelector('input[name="autoDelay"]:checked').value === "1";
+    var autoRoute = document.querySelector('.draw_panel').toDataURL(); // Assuming autoRoute is stored as base64 image data
+    var telePixels = document.querySelector('.tele_end_sheet input[type="number"]').value;
+    var mosaics = document.querySelectorAll('.tele_end_sheet input[type="number"]')[1].value;
+    var drone = document.querySelector('input[name="drone"]:checked').value === "1";
+    var suspend = document.querySelector('input[name="suspend"]:checked').value === "1";
+
+    // Creating a Team object
+    var team = new Team(teamNumber, teamName, parseInt(humanComm), humanPreferences === "1", notes, preferredSide, parseInt(autoPixels), teamProp, autoDelay, autoRoute, parseInt(telePixels), parseInt(mosaics), drone, suspend);
+    console.log(team)
+    return team;
 }
 
 function removeScouting(currentSelector,joinCode){
@@ -199,6 +221,7 @@ function scoutingGroupCreate(){
     //sends a request to create join code to the server
     fetch('/codeCreate',{
         method: 'POST',
+        cache: "no-cache",
         headers: {
             'Content-Type': 'application/json'
         }
@@ -220,13 +243,13 @@ function scoutingGroupCreate(){
 
 function initializeScouting(joinCode){
 //pulls data from server joning with code and populates masterList
-function scoutingGroupCreate(){
-    //sends a request to create join code to the server
-    fetch('/codeCreate',{
+    fetch('/infoPull',{
         method: 'POST',
+        cache: "no-cache",
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify(joinCode)
     })
     .then(res => {
         if(res.ok) {
@@ -235,16 +258,90 @@ function scoutingGroupCreate(){
         throw new Error('Failed to create join code')
     })
     .then(data => {
-        newCookie(data.joinCode)
-        userData = parseCookie()
+        masterlistUpdate(data.infoPull)
     })
     .catch(error => {
         console.error('Error:', error)
     })
 }
 
+let testData = `{
+    "teams": [
+      {
+        "teamNumber": 12345,
+        "teamName": "Example Team 1",
+        "humanComm": 3,
+        "humanPreferences": true,
+        "notes": "Example notes for Team 1",
+        "preferredSide": true,
+        "autoPixels": 1,
+        "teamProp": false,
+        "autoDelay": true,
+        "autoRoute": "example-route1.jpg",
+        "telePixels": 16,
+        "mosaics": 3,
+        "drone": false,
+        "suspend": true
+      },
+      {
+        "teamNumber": 54321,
+        "teamName": "Example Team 2",
+        "humanComm": 5,
+        "humanPreferences": false,
+        "notes": "Example notes for Team 2",
+        "preferredSide": false,
+        "autoPixels": 2,
+        "teamProp": true,
+        "autoDelay": false,
+        "autoRoute": "example-route2.jpg",
+        "telePixels": 20,
+        "mosaics": 2,
+        "drone": true,
+        "suspend": false
+      }
+    ]
+  }`;
+
+masterlistUpdate(testData)
+
+function masterlistUpdate(jsonDataFunction){
+    //fills the necasary array and classes for digestible data
+    console.log(jsonDataFunction)
+    masterList = []
+    const teamsData = JSON.parse(jsonDataFunction).teams
+
+    teamsData.forEach(teamData => {
+    const team = new Team(
+        teamData.teamNumber,
+        teamData.teamName,
+        teamData.humanComm,
+        teamData.humanPreferences,
+        teamData.notes,
+        teamData.preferredSide,
+        teamData.autoPixels,
+        teamData.teamProp,
+        teamData.autoDelay,
+        teamData.autoRoute,
+        teamData.telePixels,
+        teamData.mosaics,
+        teamData.drone,
+        teamData.suspend
+    )
+    masterList.push(team)
+    })
+    buttonPopulate()
+}
+
 function buttonPopulate(){
-//create the buttons from the masterList
+    let buttonContainer = document.getElementById("buttonContainer")
+    buttonList = []
+    //create the buttons from the masterList
+    for (let i = 0; i < masterList.length; i++) {
+        let team = masterList[i];
+        buttonList[i] = document.createElement("button");
+        buttonList[i].textContent = `${team.teamNumber}: ${team.teamName}`;
+        buttonContainer.appendChild(buttonList[i]);
+    }
 }
 
 /*
