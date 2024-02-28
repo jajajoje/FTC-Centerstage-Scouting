@@ -45,11 +45,9 @@ class Team {
 //the function scoutingJoin and scoutingCreate will await response
 function ftcJoinAsk (){
     if(userData == undefined){
-        console.log(true)
         document.getElementById("joinPopup").style.display = "block"
         document.getElementById("leaveButton").style.display = "none"
     }else{
-        console.log(false)
         // uncoment for when it works
         // masterList = initializeScouting(userData[joinCode])
         //delete this soon
@@ -88,15 +86,14 @@ function ftcJoinAsk (){
               "suspend": false
             }
         ];
-    }
 
-    buttonPopulate()
-    document.getElementById("leaveButton").style.display = "block"
+        buttonPopulate()
+        document.getElementById("leaveButton").style.display = "block"
+    }
 }
 
 //cookies for join code
 function newCookie(code) {
-    console.log("cookie created")
     userData = {
         joinCode: code
     }
@@ -202,7 +199,7 @@ function addScouting() {
 }
 
 function finishAddScouting(joinCode){
-    //adds the scouted team to the server list and client list
+    //pull data from server then it will push the updated data
     let scoutPanel = document.getElementById("scoutingSheet")
     scoutPanel.style.display= "none"
       // Extracting data from HTML
@@ -228,7 +225,7 @@ function finishAddScouting(joinCode){
 }
 
 function removeScouting(currentSelector,joinCode){
-//send the request to delete such data
+    //pulls data, finds the selected team and removes it then pushes data
 
 }
 
@@ -245,11 +242,13 @@ function ftcLookupName(){
 }
 
 function scoutingJoin(){
+    //just shows the options under scoutingJoinSubmit()
     document.getElementById("joinArea").style.display="block"
 }
 
 function scoutingJoinSubmit(){
-
+    //will send code to sever if it exsits it will pull data. if not then it will get 501
+    
 }
 
 function scoutingLeave() {
