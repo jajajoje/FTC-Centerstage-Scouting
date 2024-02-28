@@ -156,6 +156,13 @@ table{
     padding: 0.2vw;
 }
 
+/* TODO come to this later */
+.input_field::selection{
+    background-color: var(--selectedbackground);
+    border-color: var(--selectedborder);
+    color: var(--selectedtext);
+}
+
 .text_area { 
     width: 100%;
     height: 21vw;
@@ -226,3 +233,5 @@ table{
     width: 21vw;
     z-index: 1;
 }
+
+.join_area{margin-top: 0.5vw;}

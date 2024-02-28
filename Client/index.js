@@ -45,14 +45,15 @@ class Team {
 //the function scoutingJoin and scoutingCreate will await response
 function ftcJoinAsk (){
     if(userData == undefined){
-        let joinPopup = document.getElementById("joinPopup")
-        joinPopup.style.display = "block"
+        console.log(true)
+        document.getElementById("joinPopup").style.display = "block"
+        document.getElementById("leaveButton").style.display = "none"
     }else{
-        console.log("ftcJoinAsk")
+        console.log(false)
         // uncoment for when it works
         // masterList = initializeScouting(userData[joinCode])
         //delete this soon
-        // masterList = json.stringify(testData)
+        masterList = json.stringify(testData)
         let testData = [
             {
               "teamNumber": 12345,
@@ -242,8 +243,13 @@ function ftcLookupName(){
     let teamNumber= document.getElementById("teamNumber").value
     console.log(teamNumber)
 }
+
 function scoutingJoin(){
-    
+    document.getElementById("joinArea").style.display="block"
+}
+
+function scoutingJoinSubmit(){
+
 }
 
 function scoutingLeave() {
@@ -255,7 +261,7 @@ function scoutingLeave() {
 }
 
 function buttonPopulate(){
-    console.log(masterList)
+    // console.log(masterList)
     let buttonContainer = document.getElementById("buttonContainer")
     buttonList = []
     //create the buttons from the masterList
@@ -343,7 +349,7 @@ function scoutingGroupCreate() {
 
 
 
-initializeScouting(111111)
+// initializeScouting(111111)
 //storeList(111111,masterList)
 //scoutingGroupCreate()
-console.log(JSON.stringify(masterList))
+// console.log(JSON.stringify(masterList))
