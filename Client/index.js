@@ -1,11 +1,13 @@
- //cookies (holds join code)
+//cookies (holds join code)
 let userData = parseCookie()
 //current team of interest
 let currentSelector = null
 //holds data related to teams scouting
 let masterList = []
-//hold the DOM objects  for buttons
+//hold the DOM objects for buttons
 let buttonList = []
+
+ftcJoinAsk()
 
 class Team {
     constructor(teamNumber, teamName, humanComm, humanPreferences, notes, preferredSide, autoPixels, teamProp, autoDelay, autoRoute, telePixels, mosaics, drone, suspend) {
@@ -33,25 +35,6 @@ class Team {
     }
 }
 
-// const exampleTeam = new Team(
-//     12345, // teamNumber
-//     "Example Team", // teamName
-//     3, // humanComm
-//     true, // humanPreferences
-//     "Example notes for the team", // notes
-//     true, // preferredSide
-//     1, // autoPixels
-//     false, // teamProp
-//     true, // autoDelay
-//     "example-route.jpg", // autoRoute
-//     16, // telePixels
-//     3, // mosaics
-//     false, // drone
-//     true // suspend
-// );
-
-// updateTeam(exampleTeam, sql,)
-
 /*
  *
  *           end of main varibles
@@ -65,12 +48,54 @@ function ftcJoinAsk (){
         let joinPopup = document.getElementById("joinPopup")
         joinPopup.style.display = "block"
     }else{
-        initializeScouting(userData[joinCode])
+        console.log("ftcJoinAsk")
+        // uncoment for when it works
+        // masterList = initializeScouting(userData[joinCode])
+        //delete this soon
+        // masterList = json.stringify(testData)
+        let testData = [
+            {
+              "teamNumber": 12345,
+              "teamName": "Example Team 1",
+              "humanComm": 3,
+              "humanPreferences": true,
+              "notes": "Example notes for Team 1",
+              "preferredSide": true,
+              "autoPixels": 1,
+              "teamProp": false,
+              "autoDelay": true,
+              "autoRoute": "example-route1.jpg",
+              "telePixels": 16,
+              "mosaics": 3,
+              "drone": false,
+              "suspend": true
+            },
+            {
+              "teamNumber": 54321,
+              "teamName": "Example Team 2",
+              "humanComm": 5,
+              "humanPreferences": false,
+              "notes": "Example notes for Team 2",
+              "preferredSide": false,
+              "autoPixels": 2,
+              "teamProp": true,
+              "autoDelay": false,
+              "autoRoute": "example-route2.jpg",
+              "telePixels": 20,
+              "mosaics": 2,
+              "drone": true,
+              "suspend": false
+            }
+        ];
     }
+
+    buttonPopulate()
+    document.getElementById("leaveButton").style.display = "block"
 }
 
 //cookies for join code
 function newCookie(code) {
+    console.log("cookie created")
     userData = {
         joinCode: code
     }
@@ -84,16 +109,16 @@ function updateCookie() {
 }
 
 function parseCookie() {
-let cookies = document.cookie
-let cookieData = cookies
-    .split("; ")
-    .find((cookie) => cookie.startsWith("userData="))
+    let cookies = document.cookie
+    let cookieData = cookies
+        .split("; ")
+        .find((cookie) => cookie.startsWith("userData="))
 
-if (cookieData) {
-    let jsonData = decodeURIComponent(cookieData.split("=")[1])
-    let userData = JSON.parse(jsonData)
-    return(userData)
-}
+    if (cookieData) {
+        let jsonData = decodeURIComponent(cookieData.split("=")[1])
+        let userData = JSON.parse(jsonData)
+        return(userData)
+    }
 }
 
 /*
@@ -101,8 +126,7 @@ if (cookieData) {
  *           end of autorun javascript
  *      anything below is not run on startup
  *              the exeptions are... 
- *              initializeScouting,
- *                scoutingJoin,
+ *
  *
  */
 function draw(canvas) {
@@ -169,7 +193,7 @@ function draw(canvas) {
     }
 }
 
-function addScouting(){
+function addScouting() {
     //add to the server then it will pull the data from the server
     let scoutPanel = document.getElementById("scoutingSheet")
     scoutPanel.style.display= "block"
@@ -208,131 +232,30 @@ function removeScouting(currentSelector,joinCode){
 }
 
 function ftcLookup(){
-//comunication to grab info from api through server
+    //ignore this. use for swagger.json
+    //comunication to grab info from api through server
 
 }
 
 function ftcLookupName(){
+    //ignore this. use for swagger.json
     let teamNumber= document.getElementById("teamNumber").value
     console.log(teamNumber)
 }
-
-function scoutingGroupCreate(){
-    //sends a request to create join code to the server
-    fetch('/codeCreate',{
-        method: 'POST',
-        cache: "no-cache",
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(res => {
-        if(res.ok) {
-            return res.json()
-        }
-        throw new Error('Failed to create join code')
-    })
-    .then(data => {
-        newCookie(data.joinCode)
-        userData = parseCookie()
-    })
-    .catch(error => {
-        console.error('Error:', error)
-    })
+function scoutingJoin(){
+    
 }
 
-function initializeScouting(joinCode){
-//pulls data from server joning with code and populates masterList
-    fetch('/infoPull',{
-        method: 'POST',
-        cache: "no-cache",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(joinCode)
-    })
-    .then(res => {
-        if(res.ok) {
-            return res.json()
-        }
-        throw new Error('Failed to create join code')
-    })
-    .then(data => {
-        masterlistUpdate(data.infoPull)
-    })
-    .catch(error => {
-        console.error('Error:', error)
-    })
-}
-
-let testData = `{
-    "teams": [
-      {
-        "teamNumber": 12345,
-        "teamName": "Example Team 1",
-        "humanComm": 3,
-        "humanPreferences": true,
-        "notes": "Example notes for Team 1",
-        "preferredSide": true,
-        "autoPixels": 1,
-        "teamProp": false,
-        "autoDelay": true,
-        "autoRoute": "example-route1.jpg",
-        "telePixels": 16,
-        "mosaics": 3,
-        "drone": false,
-        "suspend": true
-      },
-      {
-        "teamNumber": 54321,
-        "teamName": "Example Team 2",
-        "humanComm": 5,
-        "humanPreferences": false,
-        "notes": "Example notes for Team 2",
-        "preferredSide": false,
-        "autoPixels": 2,
-        "teamProp": true,
-        "autoDelay": false,
-        "autoRoute": "example-route2.jpg",
-        "telePixels": 20,
-        "mosaics": 2,
-        "drone": true,
-        "suspend": false
-      }
-    ]
-  }`;
-
-masterlistUpdate(testData)
-
-function masterlistUpdate(jsonDataFunction){
-    //fills the necasary array and classes for digestible data
-    console.log(jsonDataFunction)
+function scoutingLeave() {
+    userData = parseCookie()
+    currentSelector = null
     masterList = []
-    const teamsData = JSON.parse(jsonDataFunction).teams
-
-    teamsData.forEach(teamData => {
-    const team = new Team(
-        teamData.teamNumber,
-        teamData.teamName,
-        teamData.humanComm,
-        teamData.humanPreferences,
-        teamData.notes,
-        teamData.preferredSide,
-        teamData.autoPixels,
-        teamData.teamProp,
-        teamData.autoDelay,
-        teamData.autoRoute,
-        teamData.telePixels,
-        teamData.mosaics,
-        teamData.drone,
-        teamData.suspend
-    )
-    masterList.push(team)
-    })
-    buttonPopulate()
+    buttonList = []
+    ftcJoinAsk()
 }
 
 function buttonPopulate(){
+    console.log(masterList)
     let buttonContainer = document.getElementById("buttonContainer")
     buttonList = []
     //create the buttons from the masterList
@@ -344,20 +267,83 @@ function buttonPopulate(){
     }
 }
 
-/*
- *
- *           example js
- * 
- */
+async function initializeScouting(joinCode)
+{
+    try {
+        const response = await fetch(location.protocol + '//' + location.host + "/getTList", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({joinCode:joinCode})
+        })
 
-// function fetchData() {
-//     fetch('http://localhost:5501/data') // Assuming your backend is running on port 5501
-//         .then(response => response.json())
-//         .then(data => {
-//         document.getElementById('serverResponse').innerText = data.message;
-//         })
-//         .catch(error => console.error('Error:', error));
-//     }
+        if (response.status == 200) 
+        {   
+            const resultsJson = await response.json()
+            console.log(resultsJson)
+            return resultsJson
+        }
+        else 
+        {    
+            const errorData = await response.json()
+            return false
+        }
+    } 
+    catch(error) {
+        console.error('Error list store')
+        return false
 
-ftcJoinAsk ()
+    }
+}
 
+async function storeList(joinCode, teamsList)
+{
+    try {
+        const response = await fetch(location.protocol + '//' + location.host + "/setTList", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({joinCode:joinCode,teamsList:teamsList})
+        })
+        return response.status === 200
+    } 
+    catch(error) {
+        console.error('Error during list store')
+        console.error(error)
+        return false
+
+    }
+}
+
+function scoutingGroupCreate() {
+    //sends a request to create join code to the server
+    fetch('/codeCreate', {
+        method: 'GET',
+        cache: "no-cache",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => {
+        if(res.ok)
+            return res.json()
+        throw new Error('Failed to create join code')
+    })
+    .then(data => {
+        newCookie(data.joinCode)
+        userData = parseCookie()
+        document.getElementById("joinPopup").style.display = "none"
+    })
+    .catch(error => {
+        console.error('Error:', error)
+    })
+}
+
+
+
+initializeScouting(111111)
+//storeList(111111,masterList)
+//scoutingGroupCreate()
+console.log(JSON.stringify(masterList))

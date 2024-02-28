@@ -17,6 +17,7 @@
         <a href="https://ftc.ctrlyrobotics.org/home"><img src="images/logo.svg" alt="Website Logo" class="logo"></a>
         <button onclick="document.getElementById('scoutingSheet').style.display = 'block'" class="button_normal" id="addScoutingTeam" type="button">Add</button>
         <button onclick="removeScouting()" class="button_normal" id="removeScoutingTeam">Remove</button>
+        <button onclick="scoutingLeave()" class="button_normal" id = "leaveButton" style="display: none;">leave</button>
         <div class="dropdown_close">
             <div class="credits_box">
                 <a class="credits_text" href="http://www.onlinewebfonts.com">Web Fonts</a>
@@ -164,9 +165,11 @@
         <h1 class="title_text">do you want to join or create one?</h1>
         <button onclick="scoutingJoin()" class="button_normal">join</button>
         <button onclick="scoutingGroupCreate()" class="button_normal">create</button>
+        <div>
+            <button type="button" class="button_normal" id="">Submit</button>
+            <input type="number" clas="input_field">
+        </div>
     </div>
-    <!-- example html for js express -->
-    <!-- <p id="serverResponse">Loading...</p> -->
 </body>
 
 </html>

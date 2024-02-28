@@ -51,13 +51,18 @@ header {
     transform: translate(-50%, -50%);
 }
 
-#addScoutingTeam, #removeScoutingTeam{
+#addScoutingTeam, #removeScoutingTeam, #leaveButton{
     position: absolute;
     top: 1.1vw;
-    left: 6.1vw
+    left: 6.25vw
 }
+
 #removeScoutingTeam{
     left: 12.5vw
+}
+
+#leaveButton{
+    left: 18.75vw
 }
 
 .logo {
