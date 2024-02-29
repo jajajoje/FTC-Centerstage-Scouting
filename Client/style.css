@@ -15,7 +15,7 @@
     --gradientreddark:#3358ff;
     --gradientredlight:#93a7ff;
     --textcolor: #000000;
-    --hoverbackground: #93a7ff;
+    --hoverbackground: #ffffff;
 }
 * {
     margin: 0;
@@ -52,7 +52,7 @@ header {
     z-index: 4;
 }
 
-#addScoutingTeam, #leaveButton{
+#addScoutingTeam, #leaveButton, #joinCodeLabel{
     position: absolute;
     top: 1.1vw;
     left: 6.25vw
@@ -62,8 +62,16 @@ header {
     left: 12.5vw
 }
 
+#joinCodeLabel{
+    left: 18.75vw;
+}
+
 .logo {
     height: 7.3vw;
+}
+
+.logo_container{
+    z-index: 5;
 }
 
 .dropdown_close {
@@ -77,6 +85,21 @@ header {
 .table_content{
     margin-top: 0.5vw;
     width: 100vw;
+}
+
+.main_buttons{
+    border: 0.2vw solid var(--border);
+    font-size: 1.5vw;
+    margin: 1vw;
+    border-radius: 1vw;
+    margin-left: 5vw;
+    width: 60vw;
+    padding: 0.5vw;
+    background-color:var(--mainbackground);
+}
+
+.main_buttons:hover{
+    background-color: var(--hoverbackground);
 }
 
 .button_normal{

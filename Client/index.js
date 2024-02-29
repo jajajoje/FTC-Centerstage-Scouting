@@ -43,67 +43,26 @@ class Team {
 
 //this will check for exisitng join code if not and run a function 
 //the function scoutingJoin and scoutingCreate will await response
-function ftcJoinAsk (){
-    if(userData == undefined){
+async function ftcJoinAsk() {
+    if(userData == undefined || userData.joinCode == undefined || userData.joinCode == 0){
         document.getElementById("joinPopup").style.display = "block"
         document.getElementById("leaveButton").style.display = "none"
-    }else{
-        // uncoment for when it works
-        // masterList = initializeScouting(userData[joinCode])
-        //delete this soon
-        masterList = json.stringify(testData)
-        let testData = [
-            {
-              "teamNumber": 12345,
-              "teamName": "Example Team 1",
-              "humanComm": 3,
-              "humanPreferences": true,
-              "notes": "Example notes for Team 1",
-              "preferredSide": true,
-              "autoPixels": 1,
-              "teamProp": false,
-              "autoDelay": true,
-              "autoRoute": "example-route1.jpg",
-              "telePixels": 16,
-              "mosaics": 3,
-              "drone": false,
-              "suspend": true
-            },
-            {
-              "teamNumber": 54321,
-              "teamName": "Example Team 2",
-              "humanComm": 5,
-              "humanPreferences": false,
-              "notes": "Example notes for Team 2",
-              "preferredSide": false,
-              "autoPixels": 2,
-              "teamProp": true,
-              "autoDelay": false,
-              "autoRoute": "example-route2.jpg",
-              "telePixels": 20,
-              "mosaics": 2,
-              "drone": true,
-              "suspend": false
-            }
-        ];
-
-        buttonPopulate()
+    }
+    else{
+        transition()
+        setCodeLabel(userData.joinCode)
         document.getElementById("leaveButton").style.display = "block"
+        await scoutingJoinSubmit(userData.joinCode)
     }
 }
 
 function transition(){
     //transition to cover/uncover screen
-    console.log("transition")
     let element = document.getElementById("transitionBackground");
     let currentWidth = element.offsetWidth;
     let targetWidth = 100; 
 
-    if (currentWidth < targetWidth) {
-        element.style.width = targetWidth + "vw";
-    } else {
-        element.style.width = "0vw";
-    }
+    element.style.width = currentWidth < targetWidth ? targetWidth + "vw" : "0vw"
 }
 
 //cookies for join code
@@ -133,6 +92,14 @@ function parseCookie() {
     }
 }
 
+function deleteCookie(cookieName) {
+    document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+}
+
+function setCodeLabel(string){
+    document.getElementById("joinCodeLabel").innerHTML = string
+}
+
 /*
  *
  *           end of autorun javascript
@@ -141,68 +108,49 @@ function parseCookie() {
  *
  *
  */
+var _path = []
 function draw(canvas) {
-    
-    // var ctx = canvas.getContext("2d");
-
-    // canvas.addEventListener("mousedown", startDrawing);
-    // canvas.addEventListener("mousemove", draw);
-    // canvas.addEventListener("mouseup", stopDrawing);
-
-    // var isDrawing = false;
-    // var lastX = 0;
-    // var lastY = 0;
-
-    // function startDrawing(event) {
-    //     isDrawing = true;
-    //     [lastX, lastY] = [event.offsetX, event.offsetY];
-    // }
-
-    // function draw(event) {
-    //     if (!isDrawing) return;
-    //     ctx.beginPath();
-    //     ctx.moveTo(lastX, lastY);
-    //     ctx.lineTo(event.offsetX, event.offsetY);
-    //     ctx.strokeStyle = "black";
-    //     ctx.lineWidth = 2;
-    //     ctx.stroke();
-    //     [lastX, lastY] = [event.offsetX, event.offsetY];
-    // }
-
-    // function stopDrawing() {
-    //     isDrawing = false;
-    // }
-
-    var ctx = canvas.getContext("2d")
-
+    var ctx = canvas.getContext("2d");
     canvas.width = canvas.clientWidth; // Set canvas width to its CSS width
     canvas.height = canvas.clientHeight; // Set canvas height to its CSS height
-
     var isDrawing = false;
+    // var path = []; // Array to store drawn path
 
-    canvas.addEventListener("mousedown", startDrawing)
-    canvas.addEventListener("mousemove", draw)
-    canvas.addEventListener("mouseup", stopDrawing)
+    canvas.addEventListener("mousedown", startDrawing);
+    canvas.addEventListener("mousemove", draw);
+    canvas.addEventListener("mouseup", stopDrawing);
 
     function startDrawing(event) {
-        ctx.beginPath();
         isDrawing = true;
+        _path.push([event.offsetX, event.offsetY]); // Store starting point of the path
         draw(event); // Call draw initially to start drawing from the current position
     }
 
     function draw(event) {
-        if (!isDrawing) return
-        var x = event.offsetX
-        var y = event.offsetY
-        ctx.lineTo(x, y)
-        ctx.strokeStyle = "black"
-        ctx.lineWidth = 2
-        ctx.stroke()
+        if (!isDrawing) return;
+        var x = event.offsetX;
+        var y = event.offsetY;
+        _path.push([x, y]); // Store current point of the path
+        redraw();
     }
 
     function stopDrawing() {
         isDrawing = false;
     }
+
+    function redraw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+        ctx.beginPath();
+        ctx.moveTo(_path[0][0], _path[0][1]); // Move to the starting point
+        for (var i = 1; i < _path.length; i++) {
+            var point = _path[i];
+            ctx.lineTo(point[0], point[1]); // Draw line to each point
+        }
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+    }
+    console.log(_path)
 }
 
 function addScouting() {
@@ -258,21 +206,13 @@ function ftcLookupName(){
     console.log(teamNumber)
 }
 
-function scoutingJoin(){
-    //just shows the options under scoutingJoinSubmit()
-    document.getElementById("joinArea").style.display="block"
-}
-
-function scoutingJoinSubmit(){
-    //will send code to sever if it exsits it will pull data. if not then it will get 501
-    document.getElementById("joinPopup").style.display = "none"
-    document.getElementById("joinArea").style.display="none"
-    document.getElementById("leaveButton").style.display = "block"
-    transition()
-}
-
 function scoutingLeave() {
-    userData = parseCookie()
+    for (let i = 0; i < buttonList.length; i++) {
+        buttonList[i].remove();
+    }
+    userData.joinCode = 0
+    setCodeLabel("Code")
+    updateCookie()
     currentSelector = null
     masterList = []
     buttonList = []
@@ -282,46 +222,56 @@ function scoutingLeave() {
 }
 
 function buttonPopulate(){
-    // console.log(masterList)
     let buttonContainer = document.getElementById("buttonContainer")
+    for (let i = 0; i < buttonList.length; i++) {
+        buttonList[i].remove();
+    }
     buttonList = []
     //create the buttons from the masterList
     for (let i = 0; i < masterList.length; i++) {
         let team = masterList[i];
         buttonList[i] = document.createElement("button");
         buttonList[i].textContent = `${team.teamNumber}: ${team.teamName}`;
+        buttonList[i].classList.add("main_buttons");
         buttonContainer.appendChild(buttonList[i]);
     }
 }
 
-async function initializeScouting(joinCode)
-{
-    try {
-        const response = await fetch(location.protocol + '//' + location.host + "/getTList", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({joinCode:joinCode})
-        })
+async function scoutingJoinSubmit(joinCode) {
+    // Will send code to server; if it exsits it will pull data, if not then it will get a 400 invalid code
 
-        if (response.status == 200) 
-        {   
-            const resultsJson = await response.json()
-            console.log(resultsJson)
-            return resultsJson
+    fetch('/join', {
+        method: 'POST',
+        cache: "no-cache",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ joinCode: joinCode })
+    })
+    .then(res => {
+        if(res.ok)
+            return res.json()
+        else if(res.status === 400) {
+            alert('Invalid code')
+            throw new Error('Invalid code')
         }
-        else 
-        {    
-            const errorData = await response.json()
-            return false
-        }
-    } 
-    catch(error) {
-        console.error('Error list store')
-        return false
-
-    }
+        throw new Error('Failed on join')
+    })
+    .then(data => {
+        setCodeLabel(joinCode)
+        newCookie(joinCode)
+        userData = parseCookie()
+        console.log(data.teamsList)
+        masterList = data.teamsList
+        document.getElementById("joinPopup").style.display   = "none"
+        document.getElementById("joinArea").style.display    = "none"
+        document.getElementById("leaveButton").style.display = "block"
+        transition()
+        buttonPopulate()
+    })
+    .catch(error => {
+        console.error('Error:', error)
+    })
 }
 
 async function storeList(joinCode, teamsList)
@@ -332,7 +282,7 @@ async function storeList(joinCode, teamsList)
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({joinCode:joinCode,teamsList:teamsList})
+            body: JSON.stringify({joinCode:joinCode, teamsList:teamsList})
         })
         return response.status === 200
     } 
@@ -340,11 +290,10 @@ async function storeList(joinCode, teamsList)
         console.error('Error during list store')
         console.error(error)
         return false
-
     }
 }
 
-function scoutingGroupCreate() {
+async function scoutingGroupCreate() {
     //sends a request to create join code to the server
     fetch('/codeCreate', {
         method: 'GET',
@@ -359,6 +308,7 @@ function scoutingGroupCreate() {
         throw new Error('Failed to create join code')
     })
     .then(data => {
+        setCodeLabel(data.joinCode)
         newCookie(data.joinCode)
         userData = parseCookie()
         document.getElementById("joinPopup").style.display = "none"
@@ -369,10 +319,3 @@ function scoutingGroupCreate() {
         console.error('Error:', error)
     })
 }
-
-
-
-// initializeScouting(111111)
-//storeList(111111,masterList)
-//scoutingGroupCreate()
-// console.log(JSON.stringify(masterList))

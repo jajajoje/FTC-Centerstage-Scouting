@@ -14,16 +14,17 @@
 
 <body>
     <header>
-        <a href="https://ftc.ctrlyrobotics.org/home"><img src="images/logo.svg" alt="Website Logo" class="logo"></a>
+        <a href="https://ftc.ctrlyrobotics.org/home" class = "logo_container"><img src="images/logo.svg" alt="Website Logo" class="logo"></a>
         <button onclick="document.getElementById('scoutingSheet').style.display = 'block'; transition()" class="button_normal" id="addScoutingTeam" type="button">Add</button>
-        <button onclick="scoutingLeave()" class="button_normal" id = "leaveButton" style="display: none;">leave</button>
+        <button onclick="scoutingLeave()" class="button_normal" id = "leaveButton" style="display: none;">Leave</button>
+        <h1 class="button_normal" id="joinCodeLabel">Code</h1>
         <div class="dropdown_close">
             <div class="credits_box">
                 <a class="credits_text" href="http://www.onlinewebfonts.com">Web Fonts</a>
                 <br>
-                <a class="credits_text" href="https://github.com/CtrlYTeam/FTC-Centerstage-Scouting">Github repo</a>
+                <a class="credits_text" href="https://github.com/CtrlYTeam/FTC-Centerstage-Scouting">GitHub Repo</a>
                 <br>
-                <a class="credits_text" href="https://ftc-scoring.firstinspires.org/resources/">First robotics</a>
+                <a class="credits_text" href="https://ftc-scoring.firstinspires.org/resources/">FIRST Robotics</a>
             </div>
         </div>
     </header>
@@ -36,7 +37,7 @@
                   <tr>
                     <th colspan="2">
                         <div class="sheet">
-                            <button onclick="finishAddScouting()" type="button" class="button_normal">submit</button>
+                            <button onclick="finishAddScouting()" type="button" class="button_normal">Submit</button>
                             <div class="secondary_box">
                                 <div class="inner_box">
                                     <label for="teamNumber">Team Number</label>
@@ -44,7 +45,7 @@
                                 </div>
                                 <div class="inner_box">
                                     <label>Team Name</label>
-                                    <h1 id="teamName" class="input_field">Enter team number!</h1>
+                                    <h1 id="teamName" class="input_field">Enter Team Number</h1>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +57,7 @@
                             <h1 class="title_text">Autonomous</h1>
                             <div class="secondary_box">
                                 <div class="inner_box">
-                                    <p>Preferred side</p>
+                                    <p>Preferred Side</p>
                                     <div class="two_buttons">
                                         <input  type="radio" id="preferredSideYes" name="preferredSide" value="1" class="radio_normal radio_normal_l">
                                         <label for="preferredSideYes">Close</label>
@@ -67,14 +68,14 @@
                                     <div class="input">
                                         <input class="input_field" type="number">
                                     </div>
-                                    <p>Team prop</p>
+                                    <p>Team Prop</p>
                                     <div class="two_buttons">
                                         <input  type="radio" id="teamPropYes" name="teamProp" value="1" class="radio_normal radio_normal_l">
                                         <label for="teamPropYes">Close</label>
                                         <input  type="radio" id="teamPropNo" name="teamProp" value="0" class="radio_normal radio_normal_r">
                                         <label for="teamPropNo">Far</label>
                                     </div>
-                                    <p>Delay autonomous</p>
+                                    <p>Delay Autonomous</p>
                                     <div class="two_buttons">
                                         <input  type="radio" id="autoDelayYes" name="autoDelay" value="1" class="radio_normal radio_normal_l">
                                         <label for="autoDelayYes">Close</label>
@@ -83,7 +84,7 @@
                                     </div>
                                 </div>
                                 <div class="draw inner_box">
-                                    <p>Autonomous route</p>
+                                    <p>Autonomous Route</p>
                                     <canvas onclick="draw(this)" class="draw_panel"></canvas>
                                 </div>
                             </div>
@@ -92,7 +93,7 @@
                     <td rowspan="2">
                         <div class="extra_sheet">
                             <h1 class="title_text">Extra</h1>
-                            <p>Human player comunication</p>
+                            <p>Human Player Communication</p>
                             <div class="four_buttons secondary_box">
                                 <input type="radio" id="communicationCards" name="communication" value="0" class="radio_normal radio_normal_l">
                                 <label for="communicationCards">Cards</label>
@@ -103,14 +104,14 @@
                                 <input type="radio" id="communicationNothing" name="communication" value="3" class="radio_normal radio_normal_r">
                                 <label for="communicationNothing">Nothing</label>
                             </div>
-                            <p>human player prefrences</p>
+                            <p>Human Player Preferences</p>
                             <div class="two_buttons secondary_box">
                                 <input  type="radio" id="humanPreferencesYes" name="humanPreferences" value="1" class="radio_normal radio_normal_l">
                                 <label for="humanPreferencesYes">Yes</label>
                                 <input  type="radio" id="humanPreferencesNo" name="humanPreferences" value="0" class="radio_normal radio_normal_r">
                                 <label for="humanPreferencesNo">No</label>
                             </div>
-                            <p>General strategy/Notes</p>
+                            <p>General Strategy/Notes</p>
                             <div class="input">
                                 <textarea class="text_area input_field"></textarea>
                             </div>
@@ -162,28 +163,28 @@
             </div>
             <div class="info_sheet">
                 <h1>Placeholder Name</h1>
-                <p>PlaceholderNumber</p>
+                <p>Placeholder Number</p>
             </div>
             <div class="info_auto">
                 <table>
                     <tbody>
                       <tr>
                         <td>
-                            <h2>Preferred side</h2>
+                            <h2>Preferred Side</h2>
                             <p>N/A</p>
                         </td>
                         <td>
-                            <h2>Number of pixels</h2>
+                            <h2>Number of Pixels</h2>
                             <p>N/A</p>
                         </td>
                       </tr>
                       <tr>
                         <td>
-                            <h2>Team prop</h2>
+                            <h2>Team Prop</h2>
                             <p>N/A</p>
                         </td>
                         <td>
-                            <h2>Delay autonomous</h2>
+                            <h2>Delay Autonomous</h2>
                             <p>N/A</p>
                         </td>
                       </tr>
@@ -196,7 +197,7 @@
                     <tbody>
                       <tr>
                         <td>
-                            <h2>Average Number of Pixles</h2>
+                            <h2>Average Number of Pixels</h2>
                             <p>N/A</p>
                         </td>
                         <td>
@@ -222,11 +223,11 @@
                     <tbody>
                         <tr>
                             <td>
-                                <h2>Human Player Comunication</h2>
+                                <h2>Human Player Communication</h2>
                                 <p>N/A</p>
                             </td>
                             <td>
-                                <h2>Human Player Prefrences</h2>
+                                <h2>Human Player Preferences</h2>
                                 <p>N/A</p>
                             </td>
                         </tr>
@@ -242,13 +243,13 @@
         </div>
     </div>
     <div class="join_popup" id="joinPopup" style="display: none;">
-        <h1 class="title_text">you dont have a join code saved to your cookies</h1>
-        <h1 class="title_text">do you want to join or create one?</h1>
-        <button onclick="scoutingJoin()" class="button_normal">join</button>
-        <button onclick="scoutingGroupCreate()" class="button_normal">create</button>
+        <h1 class="title_text">You do not have a join code saved to your cookies.</h1>
+        <h1 class="title_text">Do you want to join or create one?</h1>
+        <button onclick="document.getElementById('joinArea').style.display='block'" class="button_normal">Join</button>
+        <button onclick="scoutingGroupCreate()" class="button_normal">Create</button>
         <div class="join_area" id="joinArea" style="display: none;">
-            <button type="button" onclick="scoutingJoinSubmit()" class="button_normal" id="joinSubmitButton">Submit</button>
-            <input type="number" class="input_field">
+            <button type="button" onclick="scoutingJoinSubmit(document.getElementById('joinCodeInput').value)" class="button_normal" id="joinSubmitButton">Submit</button>
+            <input type="number" class="input_field" id="joinCodeInput">
         </div>
     </div>
 </body>

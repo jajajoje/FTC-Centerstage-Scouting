@@ -80,7 +80,6 @@ app.get('/codeCreate', (req, res) => {
     if (err) {
       console.error('Error connecting to database:', err)
       res.status(500).send('Internal Server Error')
-      console.log('Error 1')
       return
     }
 
@@ -88,7 +87,6 @@ app.get('/codeCreate', (req, res) => {
     connection.query('SELECT joinCode FROM scoutingSheet', (queryError, results) => {
       if (queryError) {
         res.status(500).send('Internal Server Error ')
-        console.log('Error 2')
         return
       }
       //console.log(results)
@@ -113,7 +111,6 @@ app.get('/codeCreate', (req, res) => {
 
         if (queryError) {
           res.status(500).send('Internal Server Error 3')
-          console.log('Error 3')
           return
         }
 
@@ -129,22 +126,27 @@ app.get('/codeCreate', (req, res) => {
   })
 })
 
-app.post('/getTList', (req, res) => {
+app.post('/join', (req, res) => {
   sql.getConnection((err, connection) => {
     if (err) {
       console.error('Error connecting to database:', err)
       res.status(500).send('Internal Server Error')
       return
     }
+    
     connection.query('SELECT teamsList FROM scoutingSheet WHERE joinCode = ?', [req.body.joinCode], (queryError, results) => {
       connection.release()
-      //console.log(results)
+
       if (queryError) {
         res.status(500).send('Internal Server Error')
         return
       }
-      let data = { teamsList: JSON.parse(results[0].teamsList) }
-      res.json(data)
+      else if(results.length === 0) {
+        res.status(400).send('Invalid Code')
+        return
+      }
+
+      res.json({ teamsList: JSON.parse(results[0].teamsList) })
     })
   })
 })
@@ -164,8 +166,7 @@ app.post('/setTList', (req, res) => {
         res.status(500).send('Internal Server Error')
         return
       }
-      res.status(500).send('Internal Server Error')
-      return
+      res.status(200).send('Success')
     })
   })
 })
