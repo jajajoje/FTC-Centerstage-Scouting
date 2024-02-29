@@ -15,8 +15,7 @@
 <body>
     <header>
         <a href="https://ftc.ctrlyrobotics.org/home"><img src="images/logo.svg" alt="Website Logo" class="logo"></a>
-        <button onclick="document.getElementById('scoutingSheet').style.display = 'block'" class="button_normal" id="addScoutingTeam" type="button">Add</button>
-        <button onclick="removeScouting()" class="button_normal" id="removeScoutingTeam">Remove</button>
+        <button onclick="document.getElementById('scoutingSheet').style.display = 'block'; transition()" class="button_normal" id="addScoutingTeam" type="button">Add</button>
         <button onclick="scoutingLeave()" class="button_normal" id = "leaveButton" style="display: none;">leave</button>
         <div class="dropdown_close">
             <div class="credits_box">
@@ -32,7 +31,7 @@
     <div id="buttonContainer" class="button_container">
         <!-- populated with teams under the same join code -->
         <div id="scoutingSheet" class="scouting_sheet">
-            <table>
+            <table class="table_content">
                 <tbody>
                   <tr>
                     <th colspan="2">
@@ -41,7 +40,7 @@
                             <div class="secondary_box">
                                 <div class="inner_box">
                                     <label for="teamNumber">Team Number</label>
-                                    <input id="teamNumber" class="input_field" type="text" oninput="ftcLookupName()">
+                                    <input id="teamNumber" class="input_field" type="number" oninput="ftcLookupName()">
                                 </div>
                                 <div class="inner_box">
                                     <label>Team Name</label>
@@ -157,7 +156,42 @@
             </table>
         </div>
         <div class="info_panel">
-
+            <div>
+                <button onclick="editScouting()" class="button_normal" id="editScoutingTeam">Edit</button>      
+                <button onclick="removeScouting()" class="button_normal" id="removeScoutingTeam">Remove</button>
+            </div>
+            <div class="info_sheet">
+                <h1>Placeholder Name</h1>
+                <p>PlaceholderNumber</p>
+            </div>
+            <div class="info_auto">
+                <table>
+                    <tbody>
+                      <tr>
+                        <td>
+                            <h2>Preferred side</h2>
+                            <p>N/A</p>
+                        </td>
+                        <td>
+                            <h2>Number of pixels</h2>
+                            <p>N/A</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                            <h2>Team prop</h2>
+                            <p>N/A</p>
+                        </td>
+                        <td>
+                            <h2>Delay autonomous</h2>
+                            <p>N/A</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="info_tele_end"></div>
+            <div class="info_extra"></div>
         </div>
     </div>
     <div class="join_popup" id="joinPopup" style="display: none;">

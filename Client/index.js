@@ -92,6 +92,20 @@ function ftcJoinAsk (){
     }
 }
 
+function transition(){
+    //transition to cover/uncover screen
+    console.log("transition")
+    let element = document.getElementById("transitionBackground");
+    let currentWidth = element.offsetWidth;
+    let targetWidth = 100; 
+
+    if (currentWidth < targetWidth) {
+        element.style.width = targetWidth + "vw";
+    } else {
+        element.style.width = "0vw";
+    }
+}
+
 //cookies for join code
 function newCookie(code) {
     userData = {
@@ -193,9 +207,7 @@ function draw(canvas) {
 
 function addScouting() {
     //add to the server then it will pull the data from the server
-    let scoutPanel = document.getElementById("scoutingSheet")
-    scoutPanel.style.display= "block"
-
+    document.getElementById("scoutingSheet").style.display= "block"
 }
 
 function finishAddScouting(joinCode){
@@ -203,25 +215,30 @@ function finishAddScouting(joinCode){
     let scoutPanel = document.getElementById("scoutingSheet")
     scoutPanel.style.display= "none"
       // Extracting data from HTML
-    var teamNumber = document.getElementById('teamNumber').value;
-    var teamName = document.getElementById('teamName').textContent;
-    var humanComm = document.querySelector('input[name="communication"]:checked').value;
-    var humanPreferences = document.querySelector('input[name="humanPreferences"]:checked').value;
-    var notes = document.querySelector('.text_area').value;
-    var preferredSide = document.querySelector('input[name="preferredSide"]:checked').value === "1";
-    var autoPixels = document.querySelector('.auto_sheet input[type="number"]').value;
-    var teamProp = document.querySelector('input[name="teamProp"]:checked').value === "1";
-    var autoDelay = document.querySelector('input[name="autoDelay"]:checked').value === "1";
-    var autoRoute = document.querySelector('.draw_panel').toDataURL(); // Assuming autoRoute is stored as base64 image data
-    var telePixels = document.querySelector('.tele_end_sheet input[type="number"]').value;
-    var mosaics = document.querySelectorAll('.tele_end_sheet input[type="number"]')[1].value;
-    var drone = document.querySelector('input[name="drone"]:checked').value === "1";
-    var suspend = document.querySelector('input[name="suspend"]:checked').value === "1";
+    // var teamNumber = document.getElementById('teamNumber').value;
+    // var teamName = document.getElementById('teamName').textContent;
+    // var humanComm = document.querySelector('input[name="communication"]:checked').value;
+    // var humanPreferences = document.querySelector('input[name="humanPreferences"]:checked').value;
+    // var notes = document.querySelector('.text_area').value;
+    // var preferredSide = document.querySelector('input[name="preferredSide"]:checked').value === "1";
+    // var autoPixels = document.querySelector('.auto_sheet input[type="number"]').value;
+    // var teamProp = document.querySelector('input[name="teamProp"]:checked').value === "1";
+    // var autoDelay = document.querySelector('input[name="autoDelay"]:checked').value === "1";
+    // var autoRoute = document.querySelector('.draw_panel').toDataURL(); // Assuming autoRoute is stored as base64 image data
+    // var telePixels = document.querySelector('.tele_end_sheet input[type="number"]').value;
+    // var mosaics = document.querySelectorAll('.tele_end_sheet input[type="number"]')[1].value;
+    // var drone = document.querySelector('input[name="drone"]:checked').value === "1";
+    // var suspend = document.querySelector('input[name="suspend"]:checked').value === "1";
 
     // Creating a Team object
-    var team = new Team(teamNumber, teamName, parseInt(humanComm), humanPreferences === "1", notes, preferredSide, parseInt(autoPixels), teamProp, autoDelay, autoRoute, parseInt(telePixels), parseInt(mosaics), drone, suspend);
-    console.log(team)
+    // var team = new Team(teamNumber, teamName, parseInt(humanComm), humanPreferences === "1", notes, preferredSide, parseInt(autoPixels), teamProp, autoDelay, autoRoute, parseInt(telePixels), parseInt(mosaics), drone, suspend);
+    // console.log(team)
+    transition()
     return team;
+}
+
+function editScouting(){
+    //pulls data find affected team then pushes data    
 }
 
 function removeScouting(currentSelector,joinCode){
@@ -248,7 +265,10 @@ function scoutingJoin(){
 
 function scoutingJoinSubmit(){
     //will send code to sever if it exsits it will pull data. if not then it will get 501
-    
+    document.getElementById("joinPopup").style.display = "none"
+    document.getElementById("joinArea").style.display="none"
+    document.getElementById("leaveButton").style.display = "block"
+    transition()
 }
 
 function scoutingLeave() {
@@ -256,7 +276,9 @@ function scoutingLeave() {
     currentSelector = null
     masterList = []
     buttonList = []
+    transition()
     ftcJoinAsk()
+    document.getElementById("scoutingSheet").style.display= "none"
 }
 
 function buttonPopulate(){
@@ -340,6 +362,8 @@ function scoutingGroupCreate() {
         newCookie(data.joinCode)
         userData = parseCookie()
         document.getElementById("joinPopup").style.display = "none"
+        document.getElementById("leaveButton").style.display = "block"
+        transition()
     })
     .catch(error => {
         console.error('Error:', error)
