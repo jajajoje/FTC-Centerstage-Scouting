@@ -281,7 +281,8 @@ header {
     width: 10;
     font-size: 2vw;
     width: 14vw;
-    margin: 0.5vw;
+    margin-bottom: 0.5vw;
+    margin-top: 0.5vw;
 }
 
 .work{
@@ -327,4 +328,6 @@ header {
     z-index: 3;
 }
 
-.join_area{margin-top: 0.5vw;}
+.join_area{
+    margin-top: 0.5vw;
+}

@@ -108,29 +108,36 @@ function setCodeLabel(string){
  *
  *
  */
+class Point {
+    constructor(x, y) {
+        this.x = x
+        this.y = y
+    }
+}
+
 var _path = []
 function draw(canvas) {
-    var ctx = canvas.getContext("2d");
-    canvas.width = canvas.clientWidth; // Set canvas width to its CSS width
-    canvas.height = canvas.clientHeight; // Set canvas height to its CSS height
-    var isDrawing = false;
-    // var path = []; // Array to store drawn path
+    var ctx = canvas.getContext("2d")
+    canvas.width = canvas.clientWidth // Set canvas width to its CSS width
+    canvas.height = canvas.clientHeight // Set canvas height to its CSS height
+    var isDrawing = false
+    // var path = [] // Array to store drawn path
 
-    canvas.addEventListener("mousedown", startDrawing);
-    canvas.addEventListener("mousemove", draw);
-    canvas.addEventListener("mouseup", stopDrawing);
+    canvas.addEventListener("mousedown", startDrawing)
+    canvas.addEventListener("mousemove", draw)
+    canvas.addEventListener("mouseup", stopDrawing)
 
     function startDrawing(event) {
         isDrawing = true;
-        _path.push([event.offsetX, event.offsetY]); // Store starting point of the path
+        _path.push(new Point(event.offsetX, event.offsetY)) // Store starting point of the path
         draw(event); // Call draw initially to start drawing from the current position
     }
 
     function draw(event) {
-        if (!isDrawing) return;
-        var x = event.offsetX;
-        var y = event.offsetY;
-        _path.push([x, y]); // Store current point of the path
+        if (!isDrawing) 
+            return;
+
+        _path.push(new Point(event.offsetX, event.offsetY)); // Store current point of the path
         redraw();
     }
 
@@ -139,13 +146,12 @@ function draw(canvas) {
     }
 
     function redraw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+        // ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
         ctx.beginPath();
-        ctx.moveTo(_path[0][0], _path[0][1]); // Move to the starting point
-        for (var i = 1; i < _path.length; i++) {
-            var point = _path[i];
-            ctx.lineTo(point[0], point[1]); // Draw line to each point
-        }
+        ctx.moveTo(_path[0].x, _path[0].y); // Move to the starting point
+        for(const point of _path)
+            ctx.lineTo(point.x, point.y)
+        
         ctx.strokeStyle = "black";
         ctx.lineWidth = 2;
         ctx.stroke();
@@ -162,7 +168,20 @@ function finishAddScouting(joinCode){
     //pull data from server then it will push the updated data
     let scoutPanel = document.getElementById("scoutingSheet")
     scoutPanel.style.display= "none"
-      // Extracting data from HTML
+    // Extracting data from HTML
+    
+    // element.style.width = currentWidth < targetWidth ? targetWidth + "vw" : "0vw"
+    
+    let scouting_team = [
+        document.getElementById('teamNumber').value ? document.getElementById('teamNumber').value : "N/A",
+        document.getElementById('teamName') ? document.getElementById('teamName') : "N/A",
+        document.querySelector('input[name="communication"]:checked').value ? document.querySelector('input[name="communication"]:checked').value : "N/A",
+        document.querySelector('.text_area').value ? document.querySelector('.text_area').value : "N/A",
+        document.querySelector('input[name="preferredSide"]:checked').value ? document.querySelector('input[name="preferredSide"]:checked').value : "N/A"
+    ]
+
+    console.log(scouting_team)
+    
     // var teamNumber = document.getElementById('teamNumber').value;
     // var teamName = document.getElementById('teamName').textContent;
     // var humanComm = document.querySelector('input[name="communication"]:checked').value;
@@ -318,4 +337,12 @@ async function scoutingGroupCreate() {
     .catch(error => {
         console.error('Error:', error)
     })
+}
+
+
+// remove for server functonality
+debug()
+function debug() {
+    document.getElementById("joinPopup").style.display = "none"
+    transition()
 }
