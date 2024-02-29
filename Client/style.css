@@ -264,6 +264,60 @@ header {
     text-align: center;
 }
 
+.inner_scroll {
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.textbox_normal{
+    border: 0.2vw solid var(--border);
+    background: var(--buttonbackground);
+    border-radius: 0.5vw;
+    margin-left: 0.3vw;
+    text-align: center;
+}
+
+.info_text{
+    width: 10;
+    font-size: 2vw;
+    width: 14vw;
+    margin: 0.5vw;
+}
+
+.work{
+    left: 15vw;
+    transform: translate(-50%);
+    margin-left: 15vw;
+}
+
+.info_draw_panel{
+    margin: 0.5vw;
+}
+
+.info_text2{
+    font-size: 1.8vw;
+    text-align: center;
+}
+
+.important_info_text{
+    font-size: 2.5vw;
+}
+
+.bottom{
+    transform: translate(-50%);
+    margin-left: 15vw;
+}
+
+/* needs centering */
+.bottom_text{
+    text-align: left;
+    height: 10vw;
+    width: 23vw;
+    border: 0.2vw solid var(--border);
+    background: var(--buttonbackground);
+    border-radius: 0.5vw;
+}
+
 .transition_background{
     position: fixed;
     background-color: var(--blue);
