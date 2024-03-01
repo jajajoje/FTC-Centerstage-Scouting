@@ -38,7 +38,7 @@ class Team {
     this.autoPixels = autoPixels; //integer
     this.teamProp = teamProp; // boolean
     this.autoDelay = autoDelay; //boolean
-    this.autoRoute = autoRoute; //image, preferably blox datatype
+    this.autoRoute = autoRoute; // Array, list of Point objects
 
     // Teleop properties
     this.telePixels = telePixels; //integer 8 chars
@@ -60,7 +60,7 @@ const exampleTeam = new Team(
   100, // autoPixels
   false, // teamProp
   true, // autoDelay
-  "example-route.jpg", // autoRoute
+  [], // autoRoute
   200, // telePixels
   3, // mosaics
   false, // drone
@@ -89,7 +89,6 @@ app.get('/codeCreate', (req, res) => {
         res.status(500).send('Internal Server Error ')
         return
       }
-      //console.log(results)
 
       const joinCodes = results.map(row => row['joinCode'])
 
@@ -159,10 +158,11 @@ app.post('/setTList', (req, res) => {
       res.status(500).send('Internal Server Error')
       return
     }
+    console.log(req.body.joinCode)
     connection.query('UPDATE scoutingSheet SET teamsList = ? WHERE joinCode = ?', [req.body.teamsList, req.body.joinCode], (queryError, results) => {
       connection.release()
-      console.log(results)
       if (queryError) {
+        //console.log(queryError)
         res.status(500).send('Internal Server Error')
         return
       }

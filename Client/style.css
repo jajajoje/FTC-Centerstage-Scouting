@@ -23,6 +23,9 @@
     transition: all 0.3s ease-in-out;
     font-family: abel;
     font-size: 1vw;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 html, body {
@@ -34,6 +37,7 @@ html, body {
 header {
     position: fixed;
     width: 100%;
+    text-align: left;
     height: 5vw;
     background-color: var(--blue);
     z-index: 3;
@@ -80,6 +84,7 @@ header {
 
 .button_container{
     margin-top: 5vw;
+    text-align: left;
 }
 
 .table_content{
@@ -226,6 +231,7 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    text-align: center;
     align-items: center;
 }
 
@@ -246,7 +252,7 @@ header {
     left: 0.5vw;
 }
 
-.sheet{
+.api_sheet{
     background-color: var(--mainbackground);
     position: absolute;
     top: -4.5vw;
@@ -269,20 +275,26 @@ header {
     overflow-y: auto;
 }
 
-.textbox_normal{
+/* .textbox_normal{
     border: 0.2vw solid var(--border);
     background: var(--buttonbackground);
     border-radius: 0.5vw;
     margin-left: 0.3vw;
     text-align: center;
-}
+} */
 
 .info_text{
     width: 10;
-    font-size: 2vw;
+    font-size: 1.5vw;
     width: 14vw;
     margin-bottom: 0.5vw;
     margin-top: 0.5vw;
+}
+
+.info_auto, .info_tele_end, .info_extra {
+    width: auto;
+    margin-right: 1vw;
+    margin-bottom: 1vw;
 }
 
 .work{
@@ -296,7 +308,7 @@ header {
 }
 
 .info_text2{
-    font-size: 1.8vw;
+    font-size: 1.2vw;
     text-align: center;
 }
 
@@ -305,15 +317,14 @@ header {
 }
 
 .bottom{
-    transform: translate(-50%);
-    margin-left: 15vw;
+    width: 100%;
 }
 
 /* needs centering */
 .bottom_text{
     text-align: left;
     height: 10vw;
-    width: 23vw;
+    width: 100%;
     border: 0.2vw solid var(--border);
     background: var(--buttonbackground);
     border-radius: 0.5vw;

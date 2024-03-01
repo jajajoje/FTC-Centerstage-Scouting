@@ -14,9 +14,11 @@
 
 <body>
     <header>
-        <a href="https://ftc.ctrlyrobotics.org/home" class = "logo_container"><img src="images/logo.svg" alt="Website Logo" class="logo"></a>
-        <button onclick="document.getElementById('scoutingSheet').style.display = 'block'; transition()" class="button_normal" id="addScoutingTeam" type="button">Add</button>
-        <button onclick="scoutingLeave()" class="button_normal" id = "leaveButton" style="display: none;">Leave</button>
+        <a href="https://ftc.ctrlyrobotics.org/home" class="logo_container"><img src="images/logo.svg"
+                alt="Website Logo" class="logo"></a>
+        <button onclick="document.getElementById('scoutingSheet').style.display = 'block'; transition()"
+            class="button_normal" id="addScoutingTeam" type="button">Add</button>
+        <button onclick="scoutingLeave()" class="button_normal" id="leaveButton" style="display: none;">Leave</button>
         <h1 class="button_normal textbox_normal" id="joinCodeLabel">Code</h1>
         <div class="dropdown_close">
             <div class="credits_box">
@@ -32,216 +34,215 @@
     <div id="buttonContainer" class="button_container">
         <!-- populated with teams under the same join code -->
         <div id="scoutingSheet" class="scouting_sheet">
-            <table class="table_content">
-                <tbody>
-                  <tr>
-                    <th colspan="2">
-                        <div class="sheet">
-                            <button onclick="finishAddScouting()" type="button" class="button_normal">Submit</button>
-                            <div class="secondary_box">
-                                <div class="inner_box">
-                                    <label for="teamNumber">Team Number</label>
-                                    <input id="teamNumber" class="input_field" type="number" oninput="ftcLookupName()">
-                                </div>
-                                <div class="inner_box">
-                                    <label>Team Name</label>
-                                    <h1 id="teamName" class="input_field">Enter Team Number</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </th>
-                  </tr>
-                  <tr>
-                    <td>
-                        <div class="auto_sheet">
-                            <h1 class="title_text">Autonomous</h1>
-                            <div class="secondary_box">
-                                <div class="inner_box">
-                                    <p>Preferred Side</p>
-                                    <div class="two_buttons">
-                                        <input  type="radio" id="preferredSideYes" name="preferredSide" value="1" class="radio_normal radio_normal_l">
-                                        <label for="preferredSideYes">Close</label>
-                                        <input  type="radio" id="preferredSideNo" name="preferredSide" value="0" class="radio_normal radio_normal_r">
-                                        <label for="preferredSideNo">Far</label>
+            <form id="formScout">
+                <table class="table_content">
+                    <tbody>
+                        <tr>
+                            <th colspan="2">
+                                <div class="sheet api_sheet">
+                                    <button onclick="finishAddScouting(); document.getElementById('scoutingSheet').style.display = 'none', transition()" type="button" class="button_normal">Submit</button>
+                                    <button onclick="cancelAddScouting()" type="button" class="button_normal">Cancel</button>
+                                    <div class="secondary_box">
+                                        <div class="inner_box">
+                                            <label for="teamNumber">Team Number</label>
+                                            <input id="teamNumber" class="input_field" type="number">
+                                        </div>
+                                        <div class="inner_box">
+                                            <label>Team Name</label>
+                                            <input id="teamName" class="input_field" type="text">
+                                        </div>
                                     </div>
-                                    <p># of Pixels</p>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="auto_sheet">
+                                    <h1 class="title_text">Autonomous</h1>
+                                    <div class="secondary_box">
+                                        <div class="inner_box">
+                                            <p>Preferred Side</p>
+                                            <div class="two_buttons">
+                                                <input type="radio" id="preferredSide1" name="preferredSide" value="1"
+                                                    class="radio_normal radio_normal_l">
+                                                <label for="preferredSide1">Close</label>
+                                                <input type="radio" id="preferredSide0" name="preferredSide" value="0"
+                                                    class="radio_normal radio_normal_r">
+                                                <label for="preferredSide0">Far</label>
+                                            </div>
+                                            <p># of Pixels</p>
+                                            <div class="input">
+                                                <input class="input_field" type="number">
+                                            </div>
+                                            <p>Team Prop</p>
+                                            <div class="two_buttons">
+                                                <input type="radio" id="teamProp1" name="teamProp" value="1"
+                                                    class="radio_normal radio_normal_l">
+                                                <label for="teamProp1">Yes</label>
+                                                <input type="radio" id="teamProp0" name="teamProp" value="0"
+                                                    class="radio_normal radio_normal_r">
+                                                <label for="teamProp0">No</label>
+                                            </div>
+                                            <p>Delay Autonomous</p>
+                                            <div class="two_buttons">
+                                                <input type="radio" id="autoDelay1" name="autoDelay" value="1"
+                                                    class="radio_normal radio_normal_l">
+                                                <label for="autoDelay1">Yes</label>
+                                                <input type="radio" id="autoDelay0" name="autoDelay" value="0"
+                                                    class="radio_normal radio_normal_r">
+                                                <label for="autoDelay0">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="draw inner_box">
+                                            <p>Autonomous Route</p>
+                                            <canvas class="draw_panel"></canvas>
+                                            <script defer src="canvasListener.js"></script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td rowspan="2">
+                                <div class="extra_sheet">
+                                    <h1 class="title_text">Extra</h1>
+                                    <p>Human Player Communication</p>
+                                    <div class="four_buttons secondary_box">
+                                        <input type="radio" id="communication0" name="communication" value="0"
+                                            class="radio_normal radio_normal_l">
+                                        <label for="communication0">Cards</label>
+                                        <input type="radio" id="communication1" name="communication" value="1"
+                                            class="radio_normal radio_normal_c">
+                                        <label for="communication1">Hands</label>
+                                        <input type="radio" id="communication2" name="communication" value="2"
+                                            class="radio_normal radio_normal_c">
+                                        <label for="communication2">Yelling</label>
+                                        <input type="radio" id="communication3" name="communication" value="3"
+                                            class="radio_normal radio_normal_r">
+                                        <label for="communication3">Nothing</label>
+                                    </div>
+                                    <p>Human Player Preferences</p>
+                                    <div class="two_buttons secondary_box">
+                                        <input type="radio" id="humanPreferences1" name="humanPreferences" value="1"
+                                            class="radio_normal radio_normal_l">
+                                        <label for="humanPreferences1">Yes</label>
+                                        <input type="radio" id="humanPreferences0" name="humanPreferences" value="0"
+                                            class="radio_normal radio_normal_r">
+                                        <label for="humanPreferences0">No</label>
+                                    </div>
+                                    <p>General Strategy/Notes</p>
                                     <div class="input">
-                                        <input class="input_field" type="number">
-                                    </div>
-                                    <p>Team Prop</p>
-                                    <div class="two_buttons">
-                                        <input  type="radio" id="teamPropYes" name="teamProp" value="1" class="radio_normal radio_normal_l">
-                                        <label for="teamPropYes">Close</label>
-                                        <input  type="radio" id="teamPropNo" name="teamProp" value="0" class="radio_normal radio_normal_r">
-                                        <label for="teamPropNo">Far</label>
-                                    </div>
-                                    <p>Delay Autonomous</p>
-                                    <div class="two_buttons">
-                                        <input  type="radio" id="autoDelayYes" name="autoDelay" value="1" class="radio_normal radio_normal_l">
-                                        <label for="autoDelayYes">Close</label>
-                                        <input  type="radio" id="autoDelayNo" name="autoDelay" value="0" class="radio_normal radio_normal_r">
-                                        <label for="autoDelayNo">Far</label>
+                                        <textarea class="text_area input_field"></textarea>
                                     </div>
                                 </div>
-                                <div class="draw inner_box">
-                                    <p>Autonomous Route</p>
-                                    <canvas onclick="draw(this)" class="draw_panel"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td rowspan="2">
-                        <div class="extra_sheet">
-                            <h1 class="title_text">Extra</h1>
-                            <p>Human Player Communication</p>
-                            <div class="four_buttons secondary_box">
-                                <input type="radio" id="communicationCards" name="communication" value="0" class="radio_normal radio_normal_l">
-                                <label for="communicationCards">Cards</label>
-                                <input type="radio" id="communicationHands" name="communication" value="1" class="radio_normal radio_normal_c">
-                                <label for="communicationHands">Hands</label>
-                                <input type="radio" id="communicationYelling" name="communication" value="2" class="radio_normal radio_normal_c">
-                                <label for="communicationYelling">Yelling</label>
-                                <input type="radio" id="communicationNothing" name="communication" value="3" class="radio_normal radio_normal_r">
-                                <label for="communicationNothing">Nothing</label>
-                            </div>
-                            <p>Human Player Preferences</p>
-                            <div class="two_buttons secondary_box">
-                                <input  type="radio" id="humanPreferencesYes" name="humanPreferences" value="1" class="radio_normal radio_normal_l">
-                                <label for="humanPreferencesYes">Yes</label>
-                                <input  type="radio" id="humanPreferencesNo" name="humanPreferences" value="0" class="radio_normal radio_normal_r">
-                                <label for="humanPreferencesNo">No</label>
-                            </div>
-                            <p>General Strategy/Notes</p>
-                            <div class="input">
-                                <textarea class="text_area input_field"></textarea>
-                            </div>
-                        </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                        <div class="tele_end_sheet">
-                            <h1 class="title_text">Teleop/Endgame</h1>
-                            <div class="secondary_box">
-                                <div class="inner_box">
-                                    <p>Drone</p>
-                                    <div class="two_buttons">
-                                        <input  type="radio" id="droneYes" name="drone" value="1" class="radio_normal radio_normal_l">
-                                        <label for="droneYes">Close</label>
-                                        <input  type="radio" id="droneNo" name="drone" value="0" class="radio_normal radio_normal_r">
-                                        <label for="droneNo">Far</label>
-                                    </div>
-                                    <p>Suspend</p>
-                                    <div class="two_buttons">
-                                        <input  type="radio" id="suspendYes" name="suspend" value="1" class="radio_normal radio_normal_l">
-                                        <label for="suspendYes">Close</label>
-                                        <input  type="radio" id="suspendNo" name="suspend" value="0" class="radio_normal radio_normal_r">
-                                        <label for="suspendNo">Far</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="tele_end_sheet">
+                                    <h1 class="title_text">Teleop/Endgame</h1>
+                                    <div class="secondary_box">
+                                        <div class="inner_box">
+                                            <p>Drone</p>
+                                            <div class="two_buttons">
+                                                <input type="radio" id="drone1" name="drone" value="1"
+                                                    class="radio_normal radio_normal_l">
+                                                <label for="drone1">Yes</label>
+                                                <input type="radio" id="drone0" name="drone" value="0"
+                                                    class="radio_normal radio_normal_r">
+                                                <label for="drone0">No</label>
+                                            </div>
+                                            <p>Suspend</p>
+                                            <div class="two_buttons">
+                                                <input type="radio" id="suspend1" name="suspend" value="1"
+                                                    class="radio_normal radio_normal_l">
+                                                <label for="suspend1">Yes</label>
+                                                <input type="radio" id="suspend0" name="suspend" value="0"
+                                                    class="radio_normal radio_normal_r">
+                                                <label for="suspend0">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="inner_box">
+                                            <p>Average # of pixels</p>
+                                            <div class="input">
+                                                <input class="input_field" type="number">
+                                            </div>
+                                            <p>Mosaics</p>
+                                            <div class="input">
+                                                <input class="input_field" type="number">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="inner_box">
-                                    <p>Average # of pixels</p>
-                                    <div class="input">
-                                        <input class="input_field" type="number">
-                                    </div>
-                                    <p>Mosaics</p>
-                                    <div class="input">
-                                        <input class="input_field" type="number">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                  </tr>
-                </tbody>
-            </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
         </div>
         <div class="info_panel">
             <div class="inner_scroll">
                 <div>
-                    <button onclick="editScouting()" class="button_normal" id="editScoutingTeam">Edit</button>      
+                    <button onclick="document.getElementById('scoutingSheet').style.display = 'block'; transition(); editPrepare()" class="button_normal" id="editScoutingTeam">Edit</button>
                     <button onclick="removeScouting()" class="button_normal" id="removeScoutingTeam">Remove</button>
                 </div>
                 <div class="info_sheet">
-                    <h1 class="important_info_text">Placeholder Name</h1>
-                    <p class="important_info_text">Placeholder Number</p>
+                    <h1 class="important_info_text" id="infoName">Placeholder Name</h1>
+                    <p class="important_info_text" id="infoNumber">Placeholder Number</p>
                 </div>
-                <div class="info_auto">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <h2 class="info_text textbox_normal">Preferred Side</h2>
-                                    <p class="info_text2">N/A</p>
-                                </td>
-                                <td>
-                                    <h2 class="info_text textbox_normal">Number of Pixels</h2>
-                                    <p class="info_text2">N/A</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="info_text textbox_normal">Team Prop</h2>
-                                    <p class="info_text2">N/A</p>
-                                </td>
-                                <td>
-                                    <h2 class="info_text textbox_normal">Delay Autonomous</h2>
-                                    <p class="info_text2">N/A</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <h2 class="info_text textbox_normal work">Autonomous Route</h2>
-                    <!-- need propercentering eventualy -->
-                    <img class="draw_panel info_draw_panel" src="placeholder.jpg">
+                <div class="info_auto sheet">
+                    <h2 class="info_text textbox_normal bottom">Autonomous</h2>
+                    <div class="secondary_box">
+                        <div class="inner_box">
+                            <h2 class="info_text textbox_normal">Preferred Side</h2>
+                            <p class="info_text2" id="infoSide">N/A</p>
+                            <h2 class="info_text textbox_normal">Number of Pixels</h2>
+                            <p class="info_text2" id="infoPixel">N/A</p>
+                        </div>
+
+                        <div class="inner_box">
+                            <h2 class="info_text textbox_normal">Team Prop</h2>
+                            <p class="info_text2" id="infoProp">N/A</p>
+
+                            <h2 class="info_text textbox_normal">Delay Autonomous</h2>
+                            <p class="info_text2" id="infoAuto">N/A</p>
+                        </div>
+                    </div>
+                    <h2 class="info_text textbox_normal bottom">Autonomous Route</h2>
+                    <!-- need proper centering eventualy -->
+                    <!-- <img class="draw_panel info_draw_panel" src="placeholder.jpg"> -->
+                    <canvas class="draw_panel"></canvas>
                 </div>
-                <div class="info_tele_end">
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <h2 class="info_text textbox_normal">Average Number of Pixels</h2>
-                                <p class="info_text2">N/A</p>
-                            </td>
-                            <td>
-                                <h2 class="info_text textbox_normal">Mosaics</h2>
-                                <p class="info_text2">N/A</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h2 class="info_text textbox_normal">Drone</h2>
-                                <p class="info_text2">N/A</p>
-                            </td>
-                            <td>
-                                <h2 class="info_text textbox_normal">Suspend</h2>
-                                <p class="info_text2">N/A</p>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="info_tele_end sheet">
+                    <h2 class="info_text textbox_normal bottom">Teleop/Endgame</h2>
+                    <div class="secondary_box">
+                        <div class="inner_box">
+                            <h2 class="info_text textbox_normal">Average <br> Number of Pixels</h2>
+                            <p class="info_text2" id="infoTelePixels">N/A</p>
+                            <h2 class="info_text textbox_normal">Mosaics</h2>
+                            <p class="info_text2" id="infoMosaics">N/A</p>
+                        </div>
+                        <div class="inner_box">
+                            <h2 class="info_text textbox_normal">Drone</h2>
+                            <p class="info_text2" id="infoDrone">N/A</p>
+
+                            <h2 class="info_text textbox_normal">Suspend</h2>
+                            <p class="info_text2" id="infoSuspend">N/A</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="info_extra">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <h2 class="info_text textbox_normal">Human Player Communication</h2>
-                                    <p class="info_text2">N/A</p>
-                                </td>
-                                <td>
-                                    <h2 class="info_text textbox_normal">Human Player Preferences</h2>
-                                    <p class="info_text2">N/A</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <h2 class="info_text textbox_normal bottom">Notes</h2>
-                                    <p class="info_text2 bottom_text">N/A</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                        </table>
+                <div class="info_extra sheet">
+                    <h2 class="info_text textbox_normal bottom">Extra</h2>
+                    <div class="secondary_box">
+                        <div class="inner_box">
+                            <h2 class="info_text textbox_normal">Human Player Communication</h2>
+                            <p class="info_text2" id="infoCom">N/A</p>
+                        </div>
+                        <div class="inner_box">
+                            <h2 class="info_text textbox_normal">Human Player Preferences</h2>
+                            <p class="info_text2" id="infoPref">N/A</p>
+                        </div>
+                    </div>
+                    <h2 class="info_text textbox_normal bottom">Notes</h2>
+                    <p class="info_text2 bottom_text" id="infoNotes">N/A</p>
                 </div>
             </div>
         </div>
@@ -252,7 +253,7 @@
         <button onclick="document.getElementById('joinArea').style.display='block'" class="button_normal">Join</button>
         <button onclick="scoutingGroupCreate()" class="button_normal">Create</button>
         <div class="join_area" id="joinArea" style="display: none;">
-            <button type="button" onclick="scoutingJoinSubmit(document.getElementById('joinCodeInput').value)" class="button_normal" id="joinSubmitButton">Submit</button>
+            <button type="button" onclick="scoutingJoinSubmit(document.getElementById('joinCodeInput').value, transition())" class="button_normal" id="joinSubmitButton">Submit</button>
             <input type="number" class="input_field" id="joinCodeInput">
         </div>
     </div>
