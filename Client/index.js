@@ -179,6 +179,7 @@ function scoutingLeave() {
 }
 
 function buttonPopulate() {
+    //create then adds the buttons to buttonContainer with the necessary data
     let buttonContainer = document.getElementById("buttonContainer")
     for (let i = 0; i < buttonList.length; i++) {
         buttonList[i].remove();
@@ -301,7 +302,6 @@ async function scoutingJoinSubmit(joinCode) {
             document.getElementById("joinPopup").style.display = "none"
             document.getElementById("joinArea").style.display = "none"
             document.getElementById("leaveButton").style.display = "block"
-            // transition()
             buttonPopulate()
         })
         .catch(error => {
@@ -352,12 +352,4 @@ async function scoutingGroupCreate() {
         .catch(error => {
             console.error('Error:', error)
         })
-}
-
-
-// remove for server functonality
-// debug()
-function debug() {
-    document.getElementById("joinPopup").style.display = "none"
-    transition()
 }
