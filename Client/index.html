@@ -95,8 +95,9 @@
                                         </div>
                                         <div class="draw inner_box">
                                             <p>Autonomous Route</p>
-                                            <canvas class="draw_panel"></canvas>
+                                            <canvas class="draw_panel" id="addDraw"></canvas>
                                             <script defer src="canvasListener.js"></script>
+                                            <button onclick="clearCanvas()" type="button" class="button_normal" style="width: 100%; margin-top: 1%;">Clear</button>
                                         </div>
                                     </div>
                                 </div>
@@ -178,7 +179,7 @@
                 </table>
             </form>
         </div>
-        <div class="info_panel">
+        <div class="info_panel" id="infoPanel">
             <div class="inner_scroll">
                 <div>
                     <button onclick="document.getElementById('scoutingSheet').style.display = 'block'; transition(); editPrepare()" class="button_normal" id="editScoutingTeam">Edit</button>
@@ -209,7 +210,7 @@
                     <h2 class="info_text textbox_normal bottom">Autonomous Route</h2>
                     <!-- need proper centering eventualy -->
                     <!-- <img class="draw_panel info_draw_panel" src="placeholder.jpg"> -->
-                    <canvas class="draw_panel"></canvas>
+                    <canvas class="draw_panel" id="infoDraw"></canvas>
                 </div>
                 <div class="info_tele_end sheet">
                     <h2 class="info_text textbox_normal bottom">Teleop/Endgame</h2>

@@ -97,7 +97,8 @@ function editPrepare() {
     document.querySelector('.auto_sheet input[type="number"]').value = team.autoPixels;
     document.getElementById('teamProp' + team.teamProp).checked = true; // Assuming 'teamProp' is the name of the radio button group
     document.getElementById('autoDelay' + team.autoDelay).checked = true; // Assuming 'autoDelay' is the name of the radio button group
-    // Set autoRoute based on 'points' in team object
+    points = team.autoRoute
+    redraw(document.getElementById("addDraw"))
     document.querySelector('.tele_end_sheet input[type="number"]').value = team.telePixels;
     document.querySelectorAll('.tele_end_sheet input[type="number"]')[1].value = team.mosaics;
     document.getElementById('drone' + team.drone).checked = true; // Assuming 'drone' is the name of the radio button group
@@ -138,6 +139,7 @@ async function finishAddScouting() {
         
     } else {
         masterList.push(scoutingTeam)
+        infoPanelShow(masterList.length - 1)
     }
     edit = false;
     await storeList(userData.joinCode, JSON.stringify(masterList))
@@ -147,6 +149,21 @@ async function finishAddScouting() {
     await scoutingJoinSubmit(userData.joinCode)
     
     transition()
+}
+
+function cancelAddScouting() {
+    edit = false;
+    document.getElementById('teamNumber').disabled = false;
+    document.getElementById('formScout').reset()
+    let scoutPanel = document.getElementById("scoutingSheet")
+    scoutPanel.style.display = "none"
+    transition()
+}
+
+function clearCanvas() {
+    points = []
+    console.log(points)
+    redraw(document.getElementById("addDraw"))
 }
 
 async function removeScouting() {
@@ -232,6 +249,7 @@ function infoPanelShow(index) {
     }
 
     points = masterList[index].autoRoute
+    redraw(document.getElementById("infoDraw"))
     document.getElementById("infoTelePixels").innerHTML = masterList[index].telePixels
     document.getElementById("infoMosaics").innerHTML = masterList[index].mosaics
 
@@ -302,6 +320,17 @@ async function scoutingJoinSubmit(joinCode) {
             document.getElementById("joinPopup").style.display = "none"
             document.getElementById("joinArea").style.display = "none"
             document.getElementById("leaveButton").style.display = "block"
+            if(masterList.length > 0) {
+                document.getElementById("infoPanel").style.right = "0"
+                currentSelector = masterList[0].teamNumber
+                infoPanelShow(0)
+            } else {
+                document.getElementById("infoPanel").style.right = "-30vw"
+                points = []
+                redraw(document.getElementById("addDraw"))
+                redraw(document.getElementById("infoDraw"))
+            }
+            // transition()
             buttonPopulate()
         })
         .catch(error => {
