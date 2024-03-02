@@ -252,7 +252,7 @@
         <h1 class="title_text">You do not have a join code saved to your cookies.</h1>
         <h1 class="title_text">Do you want to join or create one?</h1>
         <button onclick="document.getElementById('joinArea').style.display='block'" class="button_normal">Join</button>
-        <button onclick="scoutingGroupCreate()" class="button_normal">Create</button>
+        <button onclick="scoutingGroupCreate(),  transition()" class="button_normal">Create</button>
         <div class="join_area" id="joinArea" style="display: none;">
             <button type="button" onclick="scoutingJoinSubmit(document.getElementById('joinCodeInput').value, transition())" class="button_normal" id="joinSubmitButton">Submit</button>
             <input type="text" class="input_field" id="joinCodeInput">

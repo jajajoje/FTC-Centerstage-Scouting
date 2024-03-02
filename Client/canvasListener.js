@@ -96,9 +96,9 @@ function findxy(res, e) {
         
         currX = e.clientX - boundingBox.left;
         currY = e.clientY - boundingBox.top;
-        console.log(boundingBox)
+        //console.log(boundingBox)
 
-        console.log(currX + " " + currY)
+        //console.log(currX + " " + currY)
         flag = true;
         dot_flag = true;
         if (dot_flag) {

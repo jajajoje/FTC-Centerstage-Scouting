@@ -91,6 +91,11 @@ header {
     text-align: left;
 }
 
+#formScout{
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
 .table_content{
     margin-top: 0.5vw;
     width: 100vw;
@@ -209,7 +214,7 @@ header {
 .scouting_sheet {
     position: fixed;
     display: none;
-    top: 11vw;
+    /* top: 11vw; */
     z-index: 4;
 }
 
@@ -332,7 +337,6 @@ header {
     width: 100%;
 }
 
-/* needs centering */
 .bottom_text{
     text-align: left;
     height: 10vw;

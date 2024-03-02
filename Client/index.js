@@ -147,8 +147,6 @@ async function finishAddScouting() {
     document.getElementById('teamNumber').disabled = false;
     scoutingTeam = []
     await scoutingJoinSubmit(userData.joinCode)
-    
-    transition()
 }
 
 function cancelAddScouting() {
